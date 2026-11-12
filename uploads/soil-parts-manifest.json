@@ -1,0 +1,68 @@
+{
+  "canvas": {
+    "width": 2400,
+    "height": 3000,
+    "aspectRatio": "4:5"
+  },
+  "partCount": 5,
+  "format": "transparent PNG",
+  "solidOverlapPx": 64,
+  "particleFadePx": 140,
+  "pieces": [
+    {
+      "id": 1,
+      "referenceColor": "yellow",
+      "file": "soil-part-01-yellow-top-left.png",
+      "x": 0,
+      "y": 0,
+      "width": 1894,
+      "height": 1588,
+      "exitDirection": "top-left",
+      "suggestedExitTransform": "translate(-115%, -115%)"
+    },
+    {
+      "id": 2,
+      "referenceColor": "red",
+      "file": "soil-part-02-red-top-right.png",
+      "x": 1015,
+      "y": 0,
+      "width": 1385,
+      "height": 2212,
+      "exitDirection": "top-right",
+      "suggestedExitTransform": "translate(115%, -115%)"
+    },
+    {
+      "id": 3,
+      "referenceColor": "green",
+      "file": "soil-part-03-green-left-middle.png",
+      "x": 0,
+      "y": 1003,
+      "width": 1616,
+      "height": 1997,
+      "exitDirection": "left",
+      "suggestedExitTransform": "translateX(-120%)"
+    },
+    {
+      "id": 4,
+      "referenceColor": "blue",
+      "file": "soil-part-04-blue-bottom-right.png",
+      "x": 593,
+      "y": 1181,
+      "width": 1807,
+      "height": 1819,
+      "exitDirection": "bottom-right",
+      "suggestedExitTransform": "translate(115%, 115%)"
+    },
+    {
+      "id": 5,
+      "referenceColor": "orange",
+      "file": "soil-part-05-orange-bottom-left.png",
+      "x": 0,
+      "y": 2135,
+      "width": 1668,
+      "height": 865,
+      "exitDirection": "bottom-left",
+      "suggestedExitTransform": "translate(-115%, 115%)"
+    }
+  ]
+}

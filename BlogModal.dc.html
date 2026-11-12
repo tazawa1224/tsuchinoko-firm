@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>記事詳細モーダル｜土の子ファーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.bm-scroll{scrollbar-width:thin;scrollbar-color:#c9b892 transparent}
+.bm-scroll::-webkit-scrollbar{width:6px}
+.bm-scroll::-webkit-scrollbar-thumb{background:#c9b892;border-radius:3px}
+</style>
+</helmet>
+<div role="dialog" aria-modal="true" aria-labelledby="blog-modal-title" style="{{ s.card }}">
+  <button type="button" onClick="{{ close }}" aria-label="閉じる" style="{{ s.close }}">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"></path></svg>
+  </button>
+
+  <div class="bm-scroll" ref="{{ scrollRef }}" style="{{ s.scroll }}">
+    <!-- 写真 -->
+    <div style="{{ s.photo }}">
+      <img src="{{ post.img }}" alt="" style="display:block;width:100%;height:100%;object-fit:cover">
+    </div>
+
+    <!-- 見出し -->
+    <div style="{{ s.metaRow }}">
+      <span style="{{ s.tag }}">{{ post.category }}</span>
+      <time datetime="{{ post.iso }}" style="{{ s.date }}">{{ dateLabel }}</time>
+    </div>
+    <h2 id="blog-modal-title" style="{{ s.title }}">{{ post.title }}</h2>
+
+    <hr style="{{ s.rule }}">
+
+    <!-- 本文 -->
+    <div style="{{ s.body }}">
+      <sc-for list="{{ body.paragraphs }}" as="para" hint-placeholder-count="3">
+        <p style="{{ s.para }}">{{ para }}</p>
+      </sc-for>
+    </div>
+
+    <!-- 概要（イベント・お知らせのみ） -->
+    <sc-if value="{{ hasInfo }}" hint-placeholder-val="{{ false }}">
+      <aside aria-label="概要" style="{{ s.info }}">
+        <h3 style="{{ s.infoHead }}">{{ body.infoTitle }}</h3>
+        <dl style="{{ s.infoList }}">
+          <sc-for list="{{ body.info }}" as="it" hint-placeholder-count="3">
+            <dt style="color:#8a7a5c;white-space:nowrap">{{ it.label }}</dt>
+            <dd style="margin:0;white-space:pre-line">{{ it.value }}</dd>
+          </sc-for>
+        </dl>
+      </aside>
+    </sc-if>
+
+    <!-- 前後の記事 -->
+    <nav aria-label="前後の記事" style="{{ s.pager }}">
+      <sc-if value="{{ hasNewer }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ toNewer }}" style="{{ s.pagerBtn }}" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">← 新しい記事</button>
+      </sc-if>
+      <span style="flex:1"></span>
+      <sc-if value="{{ hasOlder }}" hint-placeholder-val="{{ true }}">
+        <button type="button" onClick="{{ toOlder }}" style="{{ s.pagerBtn }}" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">前の記事 →</button>
+      </sc-if>
+    </nav>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["pc","sp"],"default":"pc"},"post":{"editor":null},"onClose":{"editor":null},"onStep":{"editor":null},"$preview":{"width":770,"height":1200}}'>
+const I = (label, value) => ({ label, value });
+
+// 記事本文（キーは記事ID、並びは新しい順）。※仮の文章です。実際の内容に差し替えてください
+const BODIES = {
+  "blog-1": {
+    paragraphs: [
+      "今年も、夏の収穫体験を開きます。畑に入って土に触れ、育った野菜をその場で収穫していただく一日です。",
+      "とうもろこしやトマト、きゅうりなど、夏の野菜がいちばん元気な時期。採れたての味を、ぜひその場で確かめてください。",
+      "小さなお子さま連れのご家族も歓迎しています。汚れてもよい服装と、帽子・飲み物をご用意のうえお越しください。"
+    ],
+    infoTitle: "開催概要",
+    info: [I("日時", "（日程をご共有ください）"), I("場所", "土の子ファーム 畑"), I("定員", "（人数をご共有ください）"), I("申込", "お電話またはメールにて")]
+  },
+  "blog-2": {
+    paragraphs: [
+      "長かった梅雨がようやく明けました。雨のあいだは心配もしましたが、畑は驚くほど元気です。",
+      "トマトは晴れ間が続いたことで、実の色づきが一気に進みました。日に日に赤みが増していく様子を見るのが、この時期の楽しみです。",
+      "これから本格的な夏。水やりと草取りに追われる日々が続きますが、収穫の季節はもうすぐです。"
+    ]
+  },
+  "blog-3": {
+    paragraphs: [
+      "いつも直売所をご利用いただき、ありがとうございます。",
+      "暑さが厳しくなる夏季のあいだ、朝の涼しい時間帯に野菜をお届けできるよう、営業時間を早めることにしました。",
+      "朝採りの野菜をいちばん新鮮な状態でお渡しできます。ご不便をおかけしますが、どうぞよろしくお願いいたします。"
+    ],
+    infoTitle: "変更内容",
+    info: [I("期間", "（期間をご共有ください）"), I("営業時間", "（時間をご共有ください）"), I("定休日", "水曜・日曜")]
+  },
+  "blog-4": {
+    paragraphs: [
+      "夏野菜の収穫と並行して、秋冬野菜に向けた土づくりを始めました。",
+      "新しく立てた畝には、たっぷりの堆肥をすき込んであります。しばらく土を休ませ、微生物の力でふかふかの土に育ってもらいます。",
+      "ここに大根やほうれん草、にんじんの種をまく予定です。秋の便りを、どうぞ楽しみにお待ちください。"
+    ]
+  },
+  "blog-5": {
+    paragraphs: [
+      "採れたての人参は、皮ごと薄切りにして、塩とオイルだけで食べるのがおすすめです。",
+      "皮のすぐ下にこそ、香りと甘みが詰まっています。よく洗えば、皮をむく必要はありません。",
+      "シンプルな食べ方だからこそ、素材の甘さがよくわかります。ほかの食べ方は、レシピのページでもご紹介しています。"
+    ]
+  }
+};
+const ORDER = Object.keys(BODIES);
+
+const FALLBACK = { slotId: "blog-1", ym: "2026.7", day: "23", iso: "2026-07-23", category: "イベント", title: "夏の収穫体験、参加者を募集します", img: "assets/blog-1.webp" };
+
+const STYLES = {
+  pc: {
+    card: "position:relative;box-sizing:border-box;width:770px;max-height:min(1400px, calc(100vh - 130px));display:flex;flex-direction:column;background:#fdfaf2;border:1px solid #14100a;border-radius:0;box-shadow:0 24px 60px rgba(20,13,5,.3);font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased;overflow:hidden",
+    close: "position:absolute;top:14px;right:12px;z-index:3;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#2f2413;cursor:pointer",
+    scroll: "overflow-y:auto;padding:44px 64px 44px 46px;margin-right:10px",
+    photo: "aspect-ratio:2 / 1;overflow:hidden;background:#e6dcc2",
+    metaRow: "display:flex;align-items:center;gap:16px;margin-top:18px",
+    tag: "display:inline-block;font-size:13px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:4px 14px",
+    date: "font-size:14px;letter-spacing:.12em;color:#8a7a5c",
+    title: "margin:14px 0 0;font-size:28px;font-weight:500;line-height:1.6;letter-spacing:.08em;color:#14100a",
+    rule: "border:0;border-top:1px solid #ddd0b2;margin:26px 0",
+    body: "display:flex;flex-direction:column;gap:18px",
+    para: "margin:0;font-size:14.5px;line-height:2.1;letter-spacing:.08em;color:#3d3119",
+    info: "margin-top:34px;padding:24px 30px;background:#efe6d2",
+    infoHead: "margin:0 0 12px;font-size:15px;font-weight:500;letter-spacing:.2em",
+    infoList: "display:grid;grid-template-columns:auto 1fr;gap:8px 24px;margin:0;font-size:13.5px;line-height:1.9;letter-spacing:.06em",
+    pager: "display:flex;align-items:center;gap:12px;margin-top:36px;padding-top:24px;border-top:1px solid #ddd0b2",
+    pagerBtn: "min-height:44px;padding:0 24px;background:none;border:1px solid #c9b892;border-radius:999px;font-family:inherit;font-size:12.5px;letter-spacing:.16em;color:#3d3119;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease"
+  },
+  sp: {
+    card: "position:relative;box-sizing:border-box;width:min(520px, calc(100vw - 28px));max-height:min(1700px, calc(100vh - 92px));display:flex;flex-direction:column;background:#fdfaf2;border:1px solid #14100a;border-radius:0;box-shadow:0 18px 44px rgba(20,13,5,.32);font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased;overflow:hidden",
+    close: "position:absolute;top:2px;right:4px;z-index:3;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#2f2413;cursor:pointer",
+    scroll: "overflow-y:auto;padding:44px 16px 20px 14px;margin-right:4px",
+    photo: "aspect-ratio:4 / 3;overflow:hidden;background:#e6dcc2",
+    metaRow: "display:flex;align-items:center;gap:12px;margin-top:14px",
+    tag: "display:inline-block;font-size:11px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:3px 11px",
+    date: "font-size:12px;letter-spacing:.1em;color:#8a7a5c",
+    title: "margin:10px 0 0;font-size:19px;font-weight:500;line-height:1.6;letter-spacing:.06em;color:#14100a",
+    rule: "border:0;border-top:1px solid #ddd0b2;margin:18px 0",
+    body: "display:flex;flex-direction:column;gap:14px",
+    para: "margin:0;font-size:13px;line-height:2;letter-spacing:.06em;color:#3d3119",
+    info: "margin-top:22px;padding:16px 14px;background:#efe6d2",
+    infoHead: "margin:0 0 8px;font-size:13px;font-weight:500;letter-spacing:.2em",
+    infoList: "display:grid;grid-template-columns:auto 1fr;gap:4px 16px;margin:0;font-size:12px;line-height:1.9;letter-spacing:.04em",
+    pager: "display:flex;align-items:center;gap:8px;margin-top:24px;padding-top:18px;border-top:1px solid #ddd0b2",
+    pagerBtn: "min-height:44px;padding:0 16px;background:none;border:1px solid #c9b892;border-radius:999px;font-family:inherit;font-size:11.5px;letter-spacing:.12em;color:#3d3119;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease"
+  }
+};
+
+class Component extends DCLogic {
+  scrollRef = (el) => { this.scrollEl = el; };
+
+  // 前後の記事へ移ったら、本文の先頭から読めるようにする
+  componentDidUpdate() {
+    const id = this.props.post && this.props.post.slotId;
+    if (id !== this.lastId && this.scrollEl) this.scrollEl.scrollTop = 0;
+    this.lastId = id;
+  }
+
+  componentDidMount() {
+    this.lastId = this.props.post && this.props.post.slotId;
+  }
+
+  renderVals() {
+    const variant = this.props.variant === "sp" ? "sp" : "pc";
+    const post = this.props.post ?? FALLBACK;
+    const body = BODIES[post.slotId] ?? { paragraphs: [post.excerpt || ""] };
+    const i = ORDER.indexOf(post.slotId);
+    const [y, m] = String(post.ym).split(".");
+    const step = (dir) => () => { if (this.props.onStep) this.props.onStep(dir); };
+    return {
+      s: STYLES[variant],
+      scrollRef: this.scrollRef,
+      post,
+      body,
+      dateLabel: y + "年" + m + "月" + String(post.day).replace(/^0/, "") + "日",
+      hasInfo: !!(body.info && body.info.length),
+      hasNewer: i > 0,
+      hasOlder: i >= 0 && i < ORDER.length - 1,
+      toNewer: step(-1),
+      toOlder: step(1),
+      close: () => { if (this.props.onClose) this.props.onClose(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

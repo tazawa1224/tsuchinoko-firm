@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>レシピ詳細モーダル｜土の子ファーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.rm-scroll{scrollbar-width:thin;scrollbar-color:#c9b892 transparent}
+.rm-scroll::-webkit-scrollbar{width:6px}
+.rm-scroll::-webkit-scrollbar-thumb{background:#c9b892;border-radius:3px}
+</style>
+</helmet>
+<div role="dialog" aria-modal="true" aria-labelledby="recipe-modal-title" style="{{ s.card }}">
+  <button type="button" onClick="{{ close }}" aria-label="閉じる" style="{{ s.close }}">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 4l16 16M20 4L4 20"></path></svg>
+  </button>
+
+  <div class="rm-scroll" style="{{ s.scroll }}">
+    <!-- 写真 -->
+    <div style="position:relative">
+      <div style="{{ s.photo }}">
+        <img src="{{ recipe.img }}" alt="{{ titleFlat }}" style="{{ imgStyle }}">
+      </div>
+    </div>
+
+    <!-- 見出し -->
+    <span style="{{ s.tag }}">{{ recipe.cat }}</span>
+    <h2 id="recipe-modal-title" style="{{ s.title }}">{{ titleFlat }}</h2>
+    <p style="{{ s.lead }}">{{ detail.lead }}</p>
+    <div style="{{ s.meta }}">
+      <span style="display:inline-flex;align-items:center;gap:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{ recipe.time }}
+      </span>
+      <span style="display:inline-flex;align-items:center;gap:8px">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"></path></svg>{{ recipe.serves }}
+      </span>
+    </div>
+
+    <hr style="{{ s.rule }}">
+
+    <!-- 材料 -->
+    <section aria-labelledby="recipe-modal-ing">
+      <div style="{{ s.headRow }}">
+        <h3 id="recipe-modal-ing" style="{{ s.head }}">材料<span style="{{ s.headSub }}">（{{ recipe.serves }}）</span></h3>
+      </div>
+      <ul style="{{ s.ingList }}">
+        <sc-for list="{{ detail.ingredients }}" as="it" hint-placeholder-count="8">
+          <li style="display:flex;align-items:baseline;gap:8px">
+            <span style="white-space:nowrap">{{ it.name }}</span>
+            <span aria-hidden="true" style="flex:1;min-width:16px;border-bottom:1.5px dotted #c9b892;transform:translateY(-4px)"></span>
+            <span style="white-space:nowrap">{{ it.amount }}</span>
+          </li>
+        </sc-for>
+      </ul>
+    </section>
+
+    <hr style="{{ s.rule }}">
+
+    <!-- 作り方 -->
+    <section aria-labelledby="recipe-modal-steps">
+      <div style="{{ s.headRow }}">
+        <h3 id="recipe-modal-steps" style="{{ s.head }}">作り方</h3>
+      </div>
+      <ol style="{{ s.stepList }}">
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <li style="{{ s.step }}">
+            <span aria-hidden="true" style="{{ s.stepNum }}">{{ st.n }}</span>
+            <span style="white-space:pre-line;padding-top:3px">{{ st.text }}</span>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+
+    <!-- ひとことメモ -->
+    <aside aria-label="ひとことメモ" style="{{ s.memo }}">
+      <div>
+        <h4 style="{{ s.memoHead }}">ひとことメモ</h4>
+        <p style="{{ s.memoText }}">{{ detail.memo }}</p>
+      </div>
+    </aside>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"variant":{"editor":"enum","options":["pc","sp"],"default":"pc"},"recipe":{"editor":null},"onClose":{"editor":null},"$preview":{"width":770,"height":1560}}'>
+const I = (name, amount) => ({ name, amount });
+
+// レシピ詳細（キーは改行なしのレシピ名）
+const DETAILS = {
+  "にんじんのさっぱりラペ": {
+    lead: "にんじんの甘みとレモンの酸味で、さっぱりと仕上げた定番レシピ。\n作り置きしておけば、あと一品にぴったりです。",
+    ingredients: [I("にんじん", "2本（約300g）"), I("レモン汁", "大さじ2"), I("オリーブオイル", "大さじ1"), I("はちみつ", "小さじ1"), I("塩", "ひとつまみ"), I("こしょう", "少々"), I("白ごま", "大さじ1"), I("パセリ（お好みで）", "適量")],
+    steps: ["にんじんは皮をむき、細切りにする。\n（スライサーを使うと手早く仕上がります）", "ボウルににんじんを入れ、塩をふって軽くもみ、5分ほど置く。\n水気が出たら軽くしぼる。", "レモン汁、オリーブオイル、はちみつ、こしょうを加えてよく和える。", "器に盛り、白ごまをふり、お好みでパセリを散らす。"],
+    memo: "にんじんの甘みを引き立てるために、できるだけ新鮮なものを使いましょう。\n冷蔵庫で2〜3日ほど保存でき、作り置きにもおすすめです。"
+  },
+  "トマトとバジルのカプレーゼ": {
+    lead: "フレッシュなトマトとバジルでシンプルに。旬の味を楽しむ一品。\nオリーブオイルと塩だけで、素材の味が引き立ちます。",
+    ingredients: [I("トマト", "2個"), I("モッツァレラチーズ", "1個（100g）"), I("バジル", "6〜8枚"), I("オリーブオイル", "大さじ1と1/2"), I("塩", "小さじ1/4"), I("黒こしょう", "少々")],
+    steps: ["トマトとモッツァレラチーズを7mm幅の輪切りにする。", "器にトマト、チーズ、バジルを交互に並べる。", "塩をふり、オリーブオイルを回しかけ、黒こしょうをふる。"],
+    memo: "トマトは冷やしすぎないほうが甘みを感じられます。\n食べる30分前に冷蔵庫から出しておきましょう。"
+  },
+  "じゃがいものガレット": {
+    lead: "外はカリッと、中はほくほく。じゃがいものやさしい味わいを。\nシンプルな材料で、朝食にもおつまみにもなる一品です。",
+    ingredients: [I("じゃがいも", "2個（約300g）"), I("片栗粉", "大さじ1"), I("塩", "小さじ1/4"), I("こしょう", "少々"), I("オリーブオイル", "大さじ2"), I("粉チーズ（お好みで）", "大さじ1")],
+    steps: ["じゃがいもは皮をむき、せん切りにする。水にはさらさない。", "片栗粉、塩、こしょう、粉チーズを加えて全体を混ぜる。", "フライパンにオイルを熱して平らに広げ、フライ返しで押さえながら中火で6〜7分焼く。", "裏返して鍋肌からオイルを足し、さらに5分ほどこんがり焼く。"],
+    memo: "じゃがいもを水にさらさないことで、でんぷんがつなぎになり、\nまとまりやすくなります。"
+  },
+  "玉ねぎのやさしいスープ": {
+    lead: "玉ねぎの甘みがとけ込んだ、やさしく温まるスープです。\nじっくり炒めることで、驚くほど深い味わいに。",
+    ingredients: [I("玉ねぎ", "2個"), I("バター", "10g"), I("水", "400ml"), I("固形スープの素", "1個"), I("塩", "少々"), I("こしょう", "少々"), I("パセリ（お好みで）", "適量")],
+    steps: ["玉ねぎは薄切りにする。", "鍋にバターを溶かし、玉ねぎを弱めの中火で15分ほど、薄く色づくまで炒める。", "水とスープの素を加え、10分ほど煮る。", "塩、こしょうで味をととのえ、器に盛ってパセリを散らす。"],
+    memo: "玉ねぎはじっくり炒めるほど甘みが増します。\n焦がさないよう、ときどき混ぜましょう。"
+  },
+  "ほうれん草のごま和え": {
+    lead: "旬のほうれん草を、ごまの香りでやさしく和えました。\n冬のほうれん草は甘みが強く、和えものにぴったりです。",
+    ingredients: [I("ほうれん草", "1束（約200g）"), I("すりごま（白）", "大さじ2"), I("砂糖", "小さじ2"), I("しょうゆ", "小さじ2"), I("塩（ゆで用）", "少々")],
+    steps: ["塩を入れた湯にほうれん草を根元から入れ、30秒〜1分ゆでる。", "冷水にとって水気をしぼり、4cm長さに切る。", "すりごま、砂糖、しょうゆを混ぜ、ほうれん草を和える。"],
+    memo: "和えるのは食べる直前に。\n時間がたつと水っぽくなります。"
+  },
+  "大根のそぼろ煮": {
+    lead: "やさしい味わいで、ほっとする定番の家庭料理です。\nとろみのあるそぼろあんが、大根によくからみます。",
+    ingredients: [I("大根", "1/3本（約400g）"), I("鶏ひき肉", "150g"), I("だし", "400ml"), I("しょうゆ", "大さじ2"), I("みりん", "大さじ2"), I("砂糖", "小さじ2"), I("片栗粉", "小さじ2（水小さじ4で溶く）"), I("しょうが（せん切り）", "適量")],
+    steps: ["大根は皮をむき、2cm厚さのいちょう切りにする。", "鍋にだしと大根を入れ、やわらかくなるまで15分ほど煮る。", "ひき肉をほぐし入れ、しょうゆ、みりん、砂糖を加えて5分煮る。", "水溶き片栗粉でとろみをつけ、器に盛ってしょうがをのせる。"],
+    memo: "一度冷ますと大根に味がよく染みます。\n前日に作っておくのもおすすめです。"
+  },
+  "とうもろこしの炊き込みごはん": {
+    lead: "とうもろこしの甘みが広がる、季節の炊き込みごはん。\n芯ごと炊き込んで、うまみを余さずいただきます。",
+    ingredients: [I("米", "2合"), I("とうもろこし", "1本"), I("酒", "大さじ1"), I("塩", "小さじ1"), I("バター（お好みで）", "10g")],
+    steps: ["米は洗って30分ほど浸水させ、水気をきる。", "とうもろこしは包丁で実をそぎ落とす。芯は取っておく。", "炊飯器に米、酒、塩を入れ、2合の目盛りまで水を加える。", "実と芯をのせて普通に炊き、芯を取り出してさっくり混ぜる。\nお好みでバターを加える。"],
+    memo: "芯からも甘いだしが出るので、\n一緒に炊き込むのがおすすめです。"
+  },
+  "レタスのシンプルサラダ": {
+    lead: "旬のレタスをシンプルに。オリーブオイルでさっぱりと。\nしゃきっとした食感を楽しむサラダです。",
+    ingredients: [I("レタス", "1/2個"), I("オリーブオイル", "大さじ1と1/2"), I("レモン汁", "小さじ2"), I("塩", "小さじ1/4"), I("黒こしょう", "少々")],
+    steps: ["レタスは手で大きめにちぎり、冷水に5分ほどつけてしゃきっとさせる。", "水気をしっかりきる。", "食べる直前に、オイル、レモン汁、塩、こしょうで和える。"],
+    memo: "水気が残ると味がぼやけます。\nサラダスピナーやふきんで、しっかり水をきりましょう。"
+  },
+  "にんじんの丸ごとグリル": {
+    lead: "皮つきのままじっくり焼くと、驚くほど甘くなります。\nオーブンにおまかせの、手間いらずの一品です。",
+    ingredients: [I("にんじん", "2本"), I("オリーブオイル", "大さじ1"), I("塩", "小さじ1/4"), I("粗びき黒こしょう", "少々"), I("タイム（お好みで）", "適量")],
+    steps: ["にんじんはよく洗い、皮つきのまま縦半分に切る。", "オイルと塩をまぶし、180℃のオーブンで30〜35分焼く。", "竹串がすっと通れば焼き上がり。こしょうとタイムをふる。"],
+    memo: "皮のすぐ下に香りと甘みがあるので、\n皮はむかずに焼きましょう。"
+  },
+  "冷やしトマトの出汁びたし": {
+    lead: "湯むきして出汁に浸すだけ。夏の常備菜に。\nひんやり冷えたトマトに、出汁のうまみがしみ込みます。",
+    ingredients: [I("トマト", "2個"), I("だし", "300ml"), I("薄口しょうゆ", "大さじ1"), I("みりん", "大さじ1"), I("塩", "少々")],
+    steps: ["だし、しょうゆ、みりん、塩をひと煮立ちさせて冷ます。", "トマトはへたを取り、熱湯に10秒ほどつけて冷水にとり、皮をむく。", "保存容器にトマトと出汁を入れ、冷蔵庫で3時間以上ひたす。"],
+    memo: "冷蔵庫で2日ほど保存できます。\n出汁ごと器に盛って、冷たいままどうぞ。"
+  },
+  "冷たいじゃがいもスープ": {
+    lead: "牛乳でのばして冷やすだけの一品です。\nなめらかな口あたりで、暑い日にもするりといただけます。",
+    ingredients: [I("じゃがいも", "2個"), I("玉ねぎ", "1/2個"), I("バター", "10g"), I("水", "200ml"), I("牛乳", "300ml"), I("塩", "小さじ1/2")],
+    steps: ["じゃがいもと玉ねぎは薄切りにする。", "鍋にバターを溶かして玉ねぎを炒め、じゃがいもと水を加えてやわらかくなるまで煮る。", "ミキサーにかけ、牛乳と塩を加えてなめらかにする。", "冷蔵庫でよく冷やす。"],
+    memo: "冷やすと味を感じにくくなるので、\n塩はやや強めにととのえましょう。"
+  },
+  "ほうれん草のバターソテー": {
+    lead: "強火で一気に。塩とこしょうだけで十分です。\n忙しい日にも、すぐに作れる付け合わせです。",
+    ingredients: [I("ほうれん草", "1束"), I("バター", "10g"), I("塩", "少々"), I("こしょう", "少々")],
+    steps: ["ほうれん草は4cm長さに切り、茎と葉に分ける。", "フライパンにバターを溶かし、強火で茎を30秒炒める。", "葉を加えてさっと炒め合わせ、塩、こしょうで味をととのえる。"],
+    memo: "強火で手早く炒めると、\n水っぽくならず色よく仕上がります。"
+  },
+  "にんじんポタージュ": {
+    lead: "玉ねぎと煮てなめらかに。朝食にも合う一杯です。\nにんじんの色と甘みが、そのまま味わえます。",
+    ingredients: [I("にんじん", "2本"), I("玉ねぎ", "1/2個"), I("バター", "10g"), I("水", "200ml"), I("牛乳", "200ml"), I("塩", "小さじ1/2")],
+    steps: ["にんじんと玉ねぎは薄切りにする。", "バターで玉ねぎを炒め、にんじんと水を加えて15分煮る。", "ミキサーにかけて鍋に戻し、牛乳を加えて温め、塩で味をととのえる。"],
+    memo: "冷凍保存もできます。\n牛乳を加える前の状態で冷凍すると便利です。"
+  },
+  "大根と柚子の甘酢漬け": {
+    lead: "薄切りにして甘酢に漬け、柚子皮を散らして。\n冬の食卓に、さわやかな香りを添える箸休めです。",
+    ingredients: [I("大根", "1/4本（約300g）"), I("塩", "小さじ1/2"), I("酢", "大さじ3"), I("砂糖", "大さじ2"), I("柚子の皮", "1/2個分")],
+    steps: ["大根は皮をむいて薄いいちょう切りにし、塩をふって10分置き、水気をしぼる。", "酢と砂糖を混ぜ、せん切りにした柚子の皮を加える。", "大根を漬けて、冷蔵庫で1時間以上なじませる。"],
+    memo: "冷蔵庫で4〜5日保存できます。\n柚子がなければ、レモンの皮でもおいしく作れます。"
+  },
+  "焼きとうもろこし": {
+    lead: "醤油をぬって網で焼き、香ばしく仕上げます。\n夏のおやつに、子どもたちにも人気の一品です。",
+    ingredients: [I("とうもろこし", "2本"), I("しょうゆ", "大さじ1"), I("みりん", "大さじ1"), I("バター（お好みで）", "10g")],
+    steps: ["とうもろこしは皮をむき、ラップで包んで電子レンジで4分加熱する。", "しょうゆとみりんを混ぜる。", "魚焼きグリルで焼き、たれを塗っては焼くを2〜3回くり返して香ばしく仕上げる。"],
+    memo: "たれは焦げやすいので、\n塗ったあとは様子を見ながら焼きましょう。"
+  },
+  "にんじんのきんぴら": {
+    lead: "細切りにして炒め、醤油とみりんで味を含ませます。\nお弁当にも使いやすい、常備菜の定番です。",
+    ingredients: [I("にんじん", "1本"), I("ごま油", "小さじ2"), I("しょうゆ", "小さじ2"), I("みりん", "小さじ2"), I("白ごま", "小さじ1")],
+    steps: ["にんじんは細切りにする。", "ごま油でにんじんを炒め、しんなりしたらしょうゆとみりんを加える。", "汁気がなくなるまで炒め、白ごまをふる。"],
+    memo: "赤唐辛子を加えると、\nぴりっと大人の味になります。"
+  },
+  "トマトの冷製パスタ": {
+    lead: "角切りにして塩をなじませ、麺と和えるだけ。\n火を使う時間が短く、暑い日のお昼にぴったりです。",
+    ingredients: [I("カッペリーニ", "160g"), I("トマト", "2個"), I("にんにく（すりおろし）", "少々"), I("オリーブオイル", "大さじ3"), I("塩", "小さじ1/2"), I("バジル", "適量")],
+    steps: ["トマトは1cm角に切り、塩、にんにく、オイルを混ぜて冷蔵庫で冷やす。", "パスタは表示より1分長くゆで、冷水でしめて水気をよくきる。", "トマトのソースと和え、バジルを添える。"],
+    memo: "ソースを15分ほど置くと、\nトマトから水分が出て味がなじみます。"
+  },
+  "ふろふき大根": {
+    lead: "米のとぎ汁で煮て、味噌だれをのせます。\n寒い季節にうれしい、体が温まるひと皿です。",
+    ingredients: [I("大根", "1/2本"), I("米のとぎ汁", "適量"), I("昆布", "5cm"), I("味噌", "大さじ3"), I("砂糖", "大さじ2"), I("みりん", "大さじ1")],
+    steps: ["大根は3cm厚さの輪切りにして皮をむき、米のとぎ汁で20分下ゆでする。", "昆布を敷いた鍋に大根とかぶるくらいの水を入れ、弱火で20分煮る。", "味噌、砂糖、みりんを小鍋で練り、味噌だれを作る。", "器に大根を盛り、味噌だれをのせる。"],
+    memo: "米のとぎ汁で下ゆですると、\n大根の苦みが抜けてやさしい味になります。"
+  },
+  "にんじんの葉のふりかけ": {
+    lead: "刻んで乾煎りし、ごまと塩で仕上げます。\n葉つきのにんじんを、葉まで余さずいただく一品です。",
+    ingredients: [I("にんじんの葉", "1本分"), I("ごま油", "小さじ1"), I("しょうゆ", "小さじ1"), I("塩", "少々"), I("白ごま", "大さじ1"), I("削り節", "1袋（2g）")],
+    steps: ["にんじんの葉は細かく刻む。", "ごま油で水分がとぶまで炒める。", "しょうゆ、塩、白ごま、削り節を加えて、ぱらりとするまで炒る。"],
+    memo: "冷蔵庫で1週間ほど保存できます。\nごはんやおにぎり、卵焼きの具にもどうぞ。"
+  },
+  "とうもろこしのかき揚げ": {
+    lead: "実をそいで衣少なめ、さくっと揚げます。\nはじける甘みと香ばしさが楽しい一品です。",
+    ingredients: [I("とうもろこし", "1本"), I("薄力粉", "大さじ3"), I("片栗粉", "大さじ1"), I("冷水", "大さじ3"), I("塩", "少々"), I("揚げ油", "適量")],
+    steps: ["とうもろこしは実を包丁でそぎ落とす。", "実に薄力粉と片栗粉をまぶし、冷水を加えてさっくり混ぜる。", "170℃の油にスプーンで落とし、からりと揚げて塩をふる。"],
+    memo: "衣は少なめがこつ。\n実同士がくっつく程度で十分です。"
+  }
+};
+
+const FALLBACK = { title: "にんじんの\nさっぱりラペ", cat: "副菜", time: "15分", serves: "2人分", img: "recipe-assets/87f39ed4ca89b97026d948b2b95f48ef.webp", photo: true, tint: "#f3dcc2" };
+
+const STYLES = {
+  pc: {
+    card: "position:relative;box-sizing:border-box;width:770px;max-height:min(1560px, calc(100vh - 130px));display:flex;flex-direction:column;background:#fdfaf2;border:1px solid #14100a;border-radius:0;box-shadow:0 24px 60px rgba(20,13,5,.3);font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased;overflow:hidden",
+    close: "position:absolute;top:14px;right:12px;z-index:3;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#2f2413;cursor:pointer",
+    scroll: "overflow-y:auto;padding:44px 64px 44px 46px;margin-right:10px",
+    photo: "aspect-ratio:2.5 / 1;overflow:hidden",
+    photoLeaf: "position:absolute;right:-42px;bottom:-26px;width:84px;transform:rotate(8deg);pointer-events:none",
+    tag: "display:inline-block;margin-top:16px;font-size:13px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:4px 14px",
+    title: "margin:14px 0 14px;font-size:30px;font-weight:500;line-height:1.5;letter-spacing:.1em;color:#14100a",
+    lead: "margin:0;font-size:14px;line-height:2;letter-spacing:.12em;color:#5c4f34;white-space:pre-line",
+    meta: "display:flex;gap:44px;margin-top:18px;font-size:16px;letter-spacing:.1em",
+    rule: "border:0;border-top:1px solid #ddd0b2;margin:26px 0",
+    headRow: "display:flex;align-items:center;justify-content:space-between;margin-bottom:16px",
+    head: "margin:0;font-size:22px;font-weight:500;letter-spacing:.14em;color:#14100a",
+    headSub: "font-size:14px;letter-spacing:.1em;margin-left:4px",
+    headLeaf: "width:52px;transform:rotate(60deg);margin-right:14px",
+    ingList: "list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2, minmax(0, 1fr));gap:8px 48px;font-size:13.5px;line-height:1.9;letter-spacing:.1em",
+    stepList: "list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:20px",
+    step: "display:flex;align-items:flex-start;gap:16px;font-size:14px;line-height:1.9;letter-spacing:.1em",
+    stepNum: "flex:0 0 auto;width:30px;height:30px;border-radius:50%;background:#3d3119;color:#efe6d2;display:flex;align-items:center;justify-content:center;font-size:14px",
+    memo: "display:flex;align-items:center;gap:24px;margin-top:34px;padding:24px 30px;background:#efe6d2",
+    memoLeaf: "flex:0 0 auto;width:52px;transform:rotate(30deg)",
+    memoHead: "margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.2em",
+    memoText: "margin:0;font-size:12.5px;line-height:2;letter-spacing:.1em;color:#5c4f34;white-space:pre-line"
+  },
+  sp: {
+    card: "position:relative;box-sizing:border-box;width:min(520px, calc(100vw - 28px));max-height:min(1700px, calc(100vh - 92px));display:flex;flex-direction:column;background:#fdfaf2;border:1px solid #14100a;border-radius:0;box-shadow:0 18px 44px rgba(20,13,5,.32);font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased;overflow:hidden",
+    close: "position:absolute;top:2px;right:4px;z-index:3;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;color:#2f2413;cursor:pointer",
+    scroll: "overflow-y:auto;padding:44px 16px 20px 14px;margin-right:4px",
+    photo: "aspect-ratio:1.8 / 1;overflow:hidden",
+    photoLeaf: "display:none",
+    tag: "display:inline-block;margin-top:12px;font-size:11px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:3px 11px",
+    title: "margin:10px 0 8px;font-size:20px;font-weight:500;line-height:1.5;letter-spacing:.08em;color:#14100a",
+    lead: "margin:0;font-size:11.5px;line-height:1.9;letter-spacing:.08em;color:#5c4f34;white-space:pre-line",
+    meta: "display:flex;gap:28px;margin-top:12px;font-size:14px;letter-spacing:.1em",
+    rule: "border:0;border-top:1px solid #ddd0b2;margin:18px 0",
+    headRow: "display:flex;align-items:center;justify-content:space-between;margin-bottom:10px",
+    head: "margin:0;font-size:17px;font-weight:500;letter-spacing:.12em;color:#14100a",
+    headSub: "font-size:12px;letter-spacing:.08em;margin-left:2px",
+    headLeaf: "width:38px;transform:rotate(60deg);margin-right:6px",
+    ingList: "list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0, 1fr);gap:2px;font-size:12.5px;line-height:1.85;letter-spacing:.08em",
+    stepList: "list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px",
+    step: "display:flex;align-items:flex-start;gap:12px;font-size:12px;line-height:1.85;letter-spacing:.06em",
+    stepNum: "flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#3d3119;color:#efe6d2;display:flex;align-items:center;justify-content:center;font-size:12.5px",
+    memo: "position:relative;display:flex;flex-direction:column;gap:6px;margin-top:22px;padding:16px 14px;background:#efe6d2",
+    memoLeaf: "position:absolute;width:30px;transform:rotate(30deg);margin:-4px 0 0 2px",
+    memoHead: "margin:0 0 6px;font-size:13px;font-weight:500;letter-spacing:.2em",
+    memoText: "margin:0;font-size:11px;line-height:1.95;letter-spacing:.06em;color:#5c4f34;white-space:pre-line"
+  }
+};
+
+class Component extends DCLogic {
+  renderVals() {
+    const variant = this.props.variant === "sp" ? "sp" : "pc";
+    const recipe = this.props.recipe ?? FALLBACK;
+    const titleFlat = recipe.title.replace(/\n/g, "");
+    const detail = DETAILS[titleFlat] ?? { lead: "", ingredients: [], steps: [], memo: "" };
+    return {
+      s: STYLES[variant],
+      recipe,
+      titleFlat,
+      detail,
+      steps: detail.steps.map((text, i) => ({ n: i + 1, text })),
+      imgStyle: recipe.photo
+        ? "display:block;width:100%;height:100%;object-fit:cover"
+        : "display:block;width:100%;height:100%;object-fit:contain;padding:14px;box-sizing:border-box;background:" + recipe.tint,
+      close: () => { if (this.props.onClose) this.props.onClose(); }
+    };
+  }
+}
+</script>
+</body>
+</html>

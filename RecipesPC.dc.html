@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>レシピ一覧（PC）｜土の子ファーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&amp;family=Zen+Kurenaido&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#efe6d2}
+a{color:#2f2413;text-decoration:none}
+a:hover{color:#6b5c3e}
+a:focus-visible,button:focus-visible{outline:2px solid #3d3119;outline-offset:3px}
+input::placeholder{color:#8a7a5c}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}
+@keyframes tk-dot{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+@keyframes tk-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+@media (max-width: 1279px){.rp-filter{flex-direction:column !important;align-items:stretch !important;gap:20px !important}.rp-search{width:100% !important}}
+@media (max-width: 1199px){.rp-root{--rp-gutter:40px !important}.rp-nav{gap:24px !important}.rp-grid{grid-template-columns:repeat(3, minmax(0, 1fr)) !important}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+<div class="rp-root" style="--rp-gutter:max(72px, calc((100% - 1296px) / 2));position:relative;width:100%;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#FBF7EE;font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased">
+
+  <!-- ヒーロー（TOPの「旬の野菜」帯と同じ、写真＋縦書きの見出し箱） -->
+  <section style="position:relative;height:560px;overflow:hidden;background:#e6dcc2">
+    <img src="recipe-assets/hero-field.webp" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 55%">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,16,10,.55) 0%, rgba(20,16,10,0) 26%, rgba(40,33,26,0) 62%, rgba(40,33,26,.4) 100%)"></div>
+
+    <!-- ヘッダー -->
+    <header style="position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;height:96px;padding:0 var(--rp-gutter)">
+      <a href="土の子FARM%20SP.dc.html" aria-label="土の子ファーム トップへ" style="display:block">
+        <img src="recipe-assets/logo-white.webp" alt="土の子ファーム" style="display:block;width:60px;height:60px;object-fit:contain">
+      </a>
+      <nav aria-label="グローバルナビゲーション">
+        <ul class="rp-nav" style="list-style:none;margin:0;padding:0;display:flex;gap:36px;font-size:13.5px;letter-spacing:.2em">
+          <li><a href="土の子FARM%20SP.dc.html#about" style="display:block;padding:8px 0;color:#fff">私たちについて</a></li>
+          <li><a href="土の子FARM%20SP.dc.html#vegetables" style="display:block;padding:8px 0;color:#fff">野菜づくり</a></li>
+          <li><a href="#" aria-current="page" style="display:block;padding:8px 0;color:#fff;border-bottom:1px solid #fff">レシピ</a></li>
+          <li><a href="土の子FARM%20SP.dc.html#news" style="display:block;padding:8px 0;color:#fff">お知らせ</a></li>
+          <li><a href="土の子FARM%20SP.dc.html#contact" style="display:block;padding:8px 0;color:#fff">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- ページタイトル -->
+    <div style="position:absolute;z-index:3;left:0;right:0;top:150px;display:flex;justify-content:center;align-items:flex-start;gap:40px">
+      <p style="margin:72px 0 0;writing-mode:vertical-rl;font-size:22px;font-weight:500;line-height:1.9;letter-spacing:.26em;color:#fff;text-shadow:0 1px 14px #2A4B23">畑の恵みを、<br>食卓へ。</p>
+      <div style="display:flex;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:28px 17px 34px">
+        <h1 style="margin:0;font-size:44px;font-weight:700;letter-spacing:.18em;line-height:1">レシピ</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入文 -->
+  <section style="background:#efe6d2;padding:72px var(--rp-gutter) 76px">
+    <p style="margin:0;font-family:'Zen Kurenaido','Zen Old Mincho',serif;font-size:16px;line-height:2.3;letter-spacing:.06em;color:#3d3119;text-align:center">土の子ファームの野菜を使った、やさしくておいしいレシピをご紹介します。<br>旬の野菜を、もっと身近に、もっとおいしく。</p>
+  </section>
+
+  <!-- 絞り込み・検索 -->
+  <section aria-label="レシピを探す" class="rp-filter" style="position:relative;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:56px var(--rp-gutter) 0">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="11">
+        <sc-if value="{{ t.sep }}" hint-placeholder-val="{{ false }}"><span aria-hidden="true" style="width:1px;height:20px;background:#c9b892;margin:0 8px"></span></sc-if>
+        <button type="button" onClick="{{ t.pick }}" aria-pressed="{{ t.pressed }}" style="{{ t.style }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+    <label class="rp-search" style="position:relative;flex:0 0 auto;display:block;width:300px;height:48px;background:#fdfaf2;border:1px solid #c9b892;border-radius:999px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d3119" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:20px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21"></path></svg>
+      <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">レシピを検索</span>
+      <input type="search" value="{{ query }}" onInput="{{ onQuery }}" placeholder="料理名や野菜の名前で探す" style="position:absolute;left:50px;right:20px;top:0;height:46px;border:0;background:transparent;font-family:inherit;font-size:13px;letter-spacing:.1em;color:#2f2413;outline:none">
+    </label>
+  </section>
+
+  <!-- レシピ一覧（TOPのレシピ欄と同じ、白地に墨の枠） -->
+  <section aria-label="レシピ一覧" style="position:relative;z-index:2;padding:36px var(--rp-gutter) 0">
+    <div style="background:#ffffff;border:1px solid #14100a;padding:32px 28px 12px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin:0 0 24px;padding:0 4px">
+        <h2 style="margin:0;font-size:22px;font-weight:500;letter-spacing:.06em;color:#14100a">{{ filterLabel }}</h2>
+        <span style="font-size:11.5px;letter-spacing:.2em;color:#6b5c3e">{{ countLabel }}</span>
+      </div>
+
+      <div class="rp-grid" style="display:grid;grid-template-columns:repeat(4, minmax(0, 1fr));gap:22px">
+        <sc-for list="{{ recipes }}" as="r" hint-placeholder-count="8">
+          <a href="#" onClick="{{ r.open }}" aria-haspopup="dialog" style="display:flex;flex-direction:column;background:#fdfaf2;border:1px solid rgba(107,92,62,.22);border-radius:2px;padding:12px 12px 18px;color:#2f2413;animation:tk-in .6s ease both">
+            <div style="{{ r.thumbStyle }}">
+              <img src="{{ r.img }}" alt="{{ r.titleFlat }}" style="{{ r.imgStyle }}">
+            </div>
+            <span style="align-self:flex-start;margin:14px 0 0;font-size:11px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:4px 11px">{{ r.cat }}</span>
+            <h3 style="margin:10px 2px 8px;font-size:17px;font-weight:500;line-height:1.6;letter-spacing:.03em;white-space:pre-line">{{ r.title }}</h3>
+            <p style="margin:0 2px 18px;font-size:12px;line-height:1.9;letter-spacing:.04em;color:#5c4f34;min-height:46px;text-wrap:pretty">{{ r.desc }}</p>
+            <div style="display:flex;align-items:center;gap:18px;padding:0 2px;margin-top:auto;font-size:12px;letter-spacing:.06em;color:#5c4f34">
+              <span style="display:inline-flex;align-items:center;gap:6px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>{{ r.time }}
+              </span>
+              <span style="display:inline-flex;align-items:center;gap:6px">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.5 20c1.2-3.6 4-5.5 7.5-5.5s6.3 1.9 7.5 5.5"></path></svg>{{ r.serves }}
+              </span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:64px 0 40px;text-align:center">
+          <p style="margin:0 0 24px;font-size:14px;line-height:2;letter-spacing:.08em;color:#3d3119">条件に合うレシピが見つかりませんでした。<br>ほかの季節や種類でも探してみてください。</p>
+          <button type="button" onClick="{{ resetAll }}" style="min-height:52px;padding:0 44px;background:none;border:1px solid #6b5c3e;border-radius:999px;font-family:inherit;font-size:13px;letter-spacing:.24em;color:#3d3119;cursor:pointer;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">すべてのレシピを見る</button>
+        </div>
+      </sc-if>
+
+      <!-- スクロール読み込み -->
+      <div ref="{{ sentinelRef }}" aria-live="polite" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:110px;padding-top:20px">
+        <sc-if value="{{ loading }}" hint-placeholder-val="{{ false }}">
+          <div aria-hidden="true" style="display:flex;gap:10px">
+            <span style="width:7px;height:7px;border-radius:50%;background:#6b5c3e;animation:tk-dot 1s ease-in-out infinite"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#6b5c3e;animation:tk-dot 1s ease-in-out .15s infinite"></span>
+            <span style="width:7px;height:7px;border-radius:50%;background:#6b5c3e;animation:tk-dot 1s ease-in-out .3s infinite"></span>
+          </div>
+          <span style="font-size:12.5px;letter-spacing:.24em;color:#6b5c3e">レシピを読み込んでいます</span>
+        </sc-if>
+        <sc-if value="{{ allShown }}" hint-placeholder-val="{{ false }}">
+          <span style="font-size:12.5px;letter-spacing:.24em;color:#6b5c3e">すべてのレシピを表示しました</span>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <div style="display:flex;justify-content:center;margin:56px 0 0;padding:0 0 140px">
+    <a href="土の子FARM%20SP.dc.html" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 44px;border:1px solid #6b5c3e;border-radius:999px;font-size:13px;letter-spacing:.24em;color:#3d3119;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">トップへ戻る</a>
+  </div>
+
+  <!-- フッター（TOPと同じ） -->
+  <footer style="position:relative;z-index:2;margin-top:auto;background:#14100a;color:#efe6d2;padding:100px 26px 44px">
+    <div style="max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:48px">
+      <div style="display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+          <img src="recipe-assets/logo-white.webp" alt="土の子ファーム" style="display:block;width:48px;height:48px;object-fit:contain">
+          <p style="margin:0;font-size:13px;line-height:2;letter-spacing:.06em;color:#c8bb9e;text-wrap:pretty">土に育てられた野菜を、そのままの姿でお届けします。</p>
+        </div>
+
+        <nav aria-label="サイトマップ" style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">サイトマップ</span>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+            <li><a href="土の子FARM%20SP.dc.html#about" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">私たちについて</a></li>
+            <li><a href="土の子FARM%20SP.dc.html#recipe" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">旬の野菜</a></li>
+            <li><a href="#" aria-current="page" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">レシピ</a></li>
+            <li><a href="土の子FARM%20SP.dc.html#news" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">お知らせ</a></li>
+            <li><a href="土の子FARM%20SP.dc.html#about-farm" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">農園とアクセス</a></li>
+          </ul>
+        </nav>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">お問い合わせ</span>
+          <dl style="display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:13px;line-height:1.9;letter-spacing:.04em">
+            <dt style="color:#8a7a5c;white-space:nowrap">電話</dt>
+            <dd style="margin:0">000-0000-0000</dd>
+            <dt style="color:#8a7a5c;white-space:nowrap">受付</dt>
+            <dd style="margin:0">9:00 – 16:00（水・日 休）</dd>
+            <dt style="color:#8a7a5c;white-space:nowrap">所在地</dt>
+            <dd style="margin:0">〒000-0000<br>（住所をご共有ください）</dd>
+          </dl>
+          <a href="#" style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 32px;margin:6px 0 0;border:1px solid #6b5c3e;border-radius:999px;font-size:12px;letter-spacing:.24em;color:#efe6d2;transition:background .25s ease,color .25s ease" style-hover="background:#efe6d2;color:#14100a;border-color:#efe6d2">メールで問い合わせる</a>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #3a3020;padding:22px 0 0">
+        <small style="font-size:11px;letter-spacing:.14em;color:#8a7a5c">© 2026 土の子ファーム</small>
+        <div style="display:flex;gap:22px">
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">プライバシーポリシー</a>
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- レシピ詳細モーダル -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60;display:flex;justify-content:center;align-items:flex-start;padding-top:86px;box-sizing:border-box">
+      <button type="button" onClick="{{ closeModal }}" aria-label="レシピ詳細を閉じる" style="position:absolute;inset:0;border:0;padding:0;background:rgba(20,13,5,.62);cursor:default"></button>
+      <div style="position:relative">
+        <dc-import name="RecipeModal" recipe="{{ openRecipe }}" variant="pc" on-close="{{ closeModal }}" hint-size="770px,980px"></dc-import>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"previewDetail":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":3500}}'>
+const RECIPES = [
+  { title: "にんじんの\nさっぱりラペ", desc: "にんじんの甘みとレモンの酸味で、さっぱりと仕上げた定番レシピ。", cat: "副菜", season: "秋", time: "15分", serves: "2人分", img: "recipe-assets/87f39ed4ca89b97026d948b2b95f48ef.webp", photo: true, tint: "#f3dcc2" },
+  { title: "トマトとバジルの\nカプレーゼ", desc: "フレッシュなトマトとバジルでシンプルに。旬の味を楽しむ一品。", cat: "主菜", season: "夏", time: "10分", serves: "2人分", img: "recipe-assets/bd558f99e9f14ce9cd1a85b9bf32d658.webp", tint: "#f2d3cd" },
+  { title: "じゃがいもの\nガレット", desc: "外はカリッと、中はほくほく。じゃがいものやさしい味わいを。", cat: "主菜", season: "春", time: "25分", serves: "2人分", img: "recipe-assets/f99a1249516a5bb904d0fce2d93cd0a7.webp", tint: "#eee2c6" },
+  { title: "玉ねぎの\nやさしいスープ", desc: "玉ねぎの甘みがとけ込んだ、やさしく温まるスープです。", cat: "スープ", filter: "汁物", season: "春", time: "30分", serves: "2人分", img: "recipe-assets/2e81489434f08f9251030c79582503b4.webp", tint: "#eee6d0" },
+  { title: "ほうれん草の\nごま和え", desc: "旬のほうれん草を、ごまの香りでやさしく和えました。", cat: "副菜", season: "冬", time: "10分", serves: "2人分", img: "recipe-assets/d1ae52f5d8f7a27be09bb002972480c4.webp", tint: "#dde6cd" },
+  { title: "大根の\nそぼろ煮", desc: "やさしい味わいで、ほっとする定番の家庭料理です。", cat: "主菜", season: "冬", time: "25分", serves: "2人分", img: "recipe-assets/a5a0ea92d878c20ab4036a9e7417faa1.webp", tint: "#e8ead9" },
+  { title: "とうもろこしの\n炊き込みごはん", desc: "とうもろこしの甘みが広がる、季節の炊き込みごはん。", cat: "ごはんもの", filter: "主食", season: "夏", time: "60分", serves: "4人分", img: "recipe-assets/3daafa7bdeb90a364487eb22ecd009cc.webp", tint: "#f2e6bf" },
+  { title: "レタスの\nシンプルサラダ", desc: "旬のレタスをシンプルに。オリーブオイルでさっぱりと。", cat: "副菜", filter: "サラダ", season: "春", time: "10分", serves: "2人分", img: "recipe-assets/907fad15a697f39e461236aa6221d218.webp", tint: "#dfe8d2" },
+  { title: "にんじんの\n丸ごとグリル", desc: "皮つきのままじっくり焼くと、驚くほど甘くなります。", cat: "副菜", season: "秋", time: "40分", serves: "2人分", img: "recipe-assets/0be6d3259524fd711b7c24ccd8992549.webp", photo: true, tint: "#f3dcc2" },
+  { title: "冷やしトマトの\n出汁びたし", desc: "湯むきして出汁に浸すだけ。夏の常備菜に。", cat: "副菜", filter: "漬け物", season: "夏", time: "20分", serves: "2人分", img: "recipe-assets/bd558f99e9f14ce9cd1a85b9bf32d658.webp", tint: "#f2d3cd" },
+  { title: "冷たい\nじゃがいもスープ", desc: "牛乳でのばして冷やすだけの一品です。", cat: "スープ", filter: "汁物", season: "春", time: "30分", serves: "2人分", img: "recipe-assets/f99a1249516a5bb904d0fce2d93cd0a7.webp", tint: "#eee2c6" },
+  { title: "ほうれん草の\nバターソテー", desc: "強火で一気に。塩とこしょうだけで十分です。", cat: "副菜", season: "冬", time: "10分", serves: "2人分", img: "recipe-assets/d1ae52f5d8f7a27be09bb002972480c4.webp", tint: "#dde6cd" },
+  { title: "にんじん\nポタージュ", desc: "玉ねぎと煮てなめらかに。朝食にも合う一杯です。", cat: "スープ", filter: "汁物", season: "秋", time: "30分", serves: "2人分", img: "recipe-assets/62e8d3ab8845f33f817017a4a8846200.webp", photo: true, tint: "#f3dcc2" },
+  { title: "大根と柚子の\n甘酢漬け", desc: "薄切りにして甘酢に漬け、柚子皮を散らして。", cat: "漬け物", season: "冬", time: "15分", serves: "4人分", img: "recipe-assets/a5a0ea92d878c20ab4036a9e7417faa1.webp", tint: "#e8ead9" },
+  { title: "焼き\nとうもろこし", desc: "醤油をぬって網で焼き、香ばしく仕上げます。", cat: "おやつ", season: "夏", time: "15分", serves: "2人分", img: "recipe-assets/3daafa7bdeb90a364487eb22ecd009cc.webp", tint: "#f2e6bf" },
+  { title: "にんじんの\nきんぴら", desc: "細切りにして炒め、醤油とみりんで味を含ませます。", cat: "副菜", season: "秋", time: "15分", serves: "2人分", img: "recipe-assets/00c49a25ac5365332f288af6ca0108be.webp", photo: true, tint: "#f3dcc2" },
+  { title: "トマトの\n冷製パスタ", desc: "角切りにして塩をなじませ、麺と和えるだけ。", cat: "主食", season: "夏", time: "20分", serves: "2人分", img: "recipe-assets/bd558f99e9f14ce9cd1a85b9bf32d658.webp", tint: "#f2d3cd" },
+  { title: "ふろふき\n大根", desc: "米のとぎ汁で煮て、味噌だれをのせます。", cat: "副菜", season: "冬", time: "50分", serves: "2人分", img: "recipe-assets/a5a0ea92d878c20ab4036a9e7417faa1.webp", tint: "#e8ead9" },
+  { title: "にんじんの葉の\nふりかけ", desc: "刻んで乾煎りし、ごまと塩で仕上げます。", cat: "副菜", season: "秋", time: "10分", serves: "4人分", img: "recipe-assets/8d47ba4b749dccc9cc55119b0c4fa245.webp", photo: true, tint: "#f3dcc2" },
+  { title: "とうもろこしの\nかき揚げ", desc: "実をそいで衣少なめ、さくっと揚げます。", cat: "副菜", season: "夏", time: "20分", serves: "2人分", img: "recipe-assets/3daafa7bdeb90a364487eb22ecd009cc.webp", tint: "#f2e6bf" }
+];
+
+const FIRST = 8;
+const STEP = 8;
+const LOAD_DELAY = 700;
+
+const SEASONS = ["春", "夏", "秋", "冬"];
+const CATS = ["主食", "副菜", "汁物", "サラダ", "漬け物", "おやつ"];
+
+const TAB_BASE = "min-height:44px;padding:0 18px;border-radius:999px;font-family:inherit;font-size:13px;letter-spacing:.12em;white-space:nowrap;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease;";
+
+class Component extends DCLogic {
+  state = { season: null, cat: null, query: "", shown: FIRST, loading: false };
+
+  // 一覧末尾の要素が画面に入ったら、次のレシピを読み込む
+  sentinelRef = (el) => {
+    if (this.sentinel && this.io) this.io.unobserve(this.sentinel);
+    this.sentinel = el;
+    if (el && this.io) this.io.observe(el);
+  };
+
+  componentDidMount() {
+    // 画面幅が900px未満になったらSP版へ切り替える（TOPと同じ境界）。エディタのプレビュー内では切り替えない
+    this.mq = window.matchMedia("(max-width: 899px)");
+    this.onViewport = () => {
+      if (this.mq.matches && window.self === window.top) location.replace("RecipesSP.dc.html" + location.hash);
+    };
+    this.mq.addEventListener("change", this.onViewport);
+    this.onViewport();
+
+    this.io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) this.loadMore();
+    }, { rootMargin: "0px 0px 200px 0px" });
+    if (this.sentinel) this.io.observe(this.sentinel);
+  }
+
+  componentWillUnmount() {
+    if (this.mq) this.mq.removeEventListener("change", this.onViewport);
+    if (this.io) this.io.disconnect();
+    clearTimeout(this.timer);
+  }
+
+  filtered() {
+    const { season, cat, query } = this.state;
+    const q = query.trim();
+    return RECIPES.filter((r) =>
+      (!season || r.season === season) &&
+      (!cat || r.cat === cat || r.filter === cat) &&
+      (!q || r.title.replace(/\n/g, "").includes(q) || r.desc.includes(q) || r.cat.includes(q))
+    );
+  }
+
+  sentinelVisible() {
+    const el = this.sentinel;
+    return !!el && el.getBoundingClientRect().top < window.innerHeight + 200;
+  }
+
+  loadMore() {
+    if (this.state.loading || this.state.shown >= this.filtered().length) return;
+    this.setState({ loading: true });
+    this.timer = setTimeout(() => {
+      // 追加後もまだ末尾が見えていれば続けて読み込む
+      this.setState((s) => ({ shown: s.shown + STEP, loading: false }), () => {
+        if (this.sentinelVisible()) this.loadMore();
+      });
+    }, LOAD_DELAY);
+  }
+
+  // 絞り込みを変えたら表示件数を最初に戻す
+  refilter(patch) {
+    clearTimeout(this.timer);
+    this.setState({ ...patch, shown: FIRST, loading: false }, () => {
+      if (this.sentinelVisible()) this.loadMore();
+    });
+  }
+
+  renderVals() {
+    const { season, cat, query, shown, loading } = this.state;
+    const tab = (label, on, pick, sep) => ({
+      label, sep, pick,
+      pressed: on ? "true" : "false",
+      style: TAB_BASE + (on ? "background:#3d3119;color:#efe6d2;border:1px solid #3d3119;" : "background:transparent;color:#3d3119;border:1px solid #c9b892;")
+    });
+    const tabs = [tab("すべて", !season && !cat, () => this.refilter({ season: null, cat: null }), false)]
+      .concat(SEASONS.map((s, i) => tab(s, season === s, () => this.refilter({ season: season === s ? null : s }), i === 0)))
+      .concat(CATS.map((c, i) => tab(c, cat === c, () => this.refilter({ cat: cat === c ? null : c }), i === 0)));
+
+    const all = this.filtered();
+    const list = all.slice(0, shown).map((r) => ({
+      ...r,
+      open: (e) => { if (e) e.preventDefault(); this.setState({ open: r }); },
+      titleFlat: r.title.replace(/\n/g, ""),
+      thumbStyle: "position:relative;aspect-ratio:5 / 3;overflow:hidden;background:" + r.tint,
+      imgStyle: r.photo
+        ? "position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover"
+        : "position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;padding:10px;box-sizing:border-box"
+    }));
+
+    const parts = [season, cat].filter(Boolean);
+    // 「詳細を開いた状態で表示」がオンなら、最初のレシピを開いておく
+    const openRecipe = this.state.open !== undefined ? this.state.open : (this.props.previewDetail ? RECIPES[0] : null);
+
+    return {
+      modalOpen: !!openRecipe,
+      openRecipe,
+      closeModal: () => this.setState({ open: null }),
+      tabs,
+      query,
+      onQuery: (e) => this.refilter({ query: e.target.value }),
+      recipes: list,
+      filterLabel: parts.length ? parts.join("・") + "のレシピ" : "すべてのレシピ",
+      countLabel: all.length + " RECIPES",
+      isEmpty: all.length === 0,
+      sentinelRef: this.sentinelRef,
+      loading,
+      allShown: !loading && all.length > FIRST && shown >= all.length,
+      resetAll: () => this.refilter({ season: null, cat: null, query: "" })
+    };
+  }
+}
+</script>
+</body>
+</html>

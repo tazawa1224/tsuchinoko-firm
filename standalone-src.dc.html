@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content=".image-slots.state.json" data-resource-id="slotState" />
+<meta name="ext-resource-dependency" content="sa/veg-carrot.webp" data-resource-id="veg_carrot" />
+<meta name="ext-resource-dependency" content="sa/veg-tomato.webp" data-resource-id="veg_tomato" />
+<meta name="ext-resource-dependency" content="sa/veg-potato.webp" data-resource-id="veg_potato" />
+<meta name="ext-resource-dependency" content="sa/veg-onion.webp" data-resource-id="veg_onion" />
+<meta name="ext-resource-dependency" content="sa/veg-spinach.webp" data-resource-id="veg_spinach" />
+<meta name="ext-resource-dependency" content="sa/veg-daikon.webp" data-resource-id="veg_daikon" />
+<meta name="ext-resource-dependency" content="sa/veg-corn.webp" data-resource-id="veg_corn" />
+<meta name="ext-resource-dependency" content="sa/veg-lettuce.webp" data-resource-id="veg_lettuce" />
+<meta name="ext-resource-dependency" content="sa/daikon2.webp" data-resource-id="veg_daikon2" />
+<meta name="ext-resource-dependency" content="sa/lettuce2.webp" data-resource-id="veg_lettuce2" />
+<template id="__bundler_thumbnail" data-bg-color="#1b1206">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#1b1206"/>
+<circle cx="600" cy="400" r="230" fill="#efe6d2"/>
+<text x="600" y="440" font-family="serif" font-size="150" font-weight="600" text-anchor="middle" fill="#1b1206">土の子</text>
+</svg>
+</template>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho&amp;family=Zen+Kurenaido&amp;display=swap" rel="stylesheet">
+<script src="./standalone-image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #1b1206; overflow-x: clip; }
+  body { font-family: "Zen Old Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif; -webkit-font-smoothing: antialiased; }
+  a { color: #fff; text-decoration: none; }
+  a:hover { color: #e8dcc6; }
+  img { display: block; }
+</style>
+</helmet>
+<div style="position:relative;width:100%;background:#1b1206">
+
+  <div aria-hidden="true" style="position:fixed;inset:0;z-index:0;overflow:hidden;background:#efe6d2">
+    <image-slot id="tsuchinoko-vegetables-bg" shape="rect" fit="cover" src="sa/veg-bg.webp" placeholder="野菜背景"></image-slot>
+  </div>
+
+  <header style="position:fixed;top:0;left:0;right:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;pointer-events:none">
+    <div style="display:flex;align-items:center;gap:10px;pointer-events:auto">
+      <div data-header-logo="" style="position:relative;width:104px;height:38px;opacity:0;visibility:hidden;transition:opacity .4s ease, visibility .4s ease">
+        <image-slot id="tsuchinoko-header-logo" shape="rect" fit="contain" placeholder="ロゴ"></image-slot>
+      </div>
+    </div>
+    <button type="button" onClick="{{ toggleMenu }}" aria-label="メニュー" aria-expanded="{{ menuOpenStr }}" style="pointer-events:auto;width:44px;height:44px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;background:none;border:0;padding:0;cursor:pointer">
+      <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+      <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+      <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+    </button>
+  </header>
+
+  <nav data-menu="" aria-hidden="{{ menuClosedStr }}" style="{{ menuStyle }}">
+    <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:28px;text-align:center">
+      <li><a href="#about" onClick="{{ closeMenu }}" style="font-size:19px;letter-spacing:.14em;color:#fff">私たちについて</a></li>
+      <li><a href="#vegetables" onClick="{{ closeMenu }}" style="font-size:19px;letter-spacing:.14em;color:#fff">野菜づくり</a></li>
+      <li><a href="#news" onClick="{{ closeMenu }}" style="font-size:19px;letter-spacing:.14em;color:#fff">お知らせ</a></li>
+      <li><a href="#contact" onClick="{{ closeMenu }}" style="font-size:19px;letter-spacing:.14em;color:#fff">お問い合わせ</a></li>
+    </ul>
+  </nav>
+
+  <section data-opening="" style="position:relative;min-height:200svh">
+    <div style="position:sticky;top:0;height:100svh;overflow:hidden;z-index:1">
+
+      <div aria-hidden="true" style="position:absolute;inset:0;z-index:20;pointer-events:none;overflow:hidden">
+        <div data-stage="" style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:max(100vw, 80svh);aspect-ratio:4 / 5">
+          <img data-soil="1" src="sa/soil-part-01-yellow-top-left.webp" alt="" style="position:absolute;left:0%;top:0%;width:78.9167%;height:auto;max-width:none;transform:translate3d(0,0,0);will-change:transform;z-index:15">
+          <img data-soil="2" src="sa/soil-part-02-red-top-right.webp" alt="" style="position:absolute;left:42.2917%;top:0%;width:57.7083%;height:auto;max-width:none;transform:translate3d(0,0,0);will-change:transform;z-index:14">
+          <img data-soil="3" src="sa/soil-part-03-green-left-middle.webp" alt="" style="position:absolute;left:0%;top:33.4333%;width:67.3333%;height:auto;max-width:none;transform:translate3d(0,0,0);will-change:transform;z-index:13">
+          <img data-soil="4" src="sa/soil-part-04-blue-bottom-right.webp" alt="" style="position:absolute;left:24.7083%;top:39.3667%;width:75.2917%;height:auto;max-width:none;transform:translate3d(0,0,0);will-change:transform;z-index:12">
+          <img data-soil="5" src="sa/soil-part-05-orange-bottom-left.webp" alt="" style="position:absolute;left:0%;top:71.1667%;width:69.5%;height:auto;max-width:none;transform:translate3d(0,0,0);will-change:transform;z-index:11">
+        </div>
+      </div>
+
+      <div style="position:absolute;z-index:30;left:50%;top:44svh;transform:translate(-50%,-50%);width:62vw;max-width:340px;aspect-ratio:1 / 1.18">
+        <image-slot id="tsuchinoko-hero-logo" shape="rect" fit="contain" placeholder="白ロゴPNG「土の子 FARM」（未提供）"></image-slot>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="about" style="position:relative;z-index:1">
+    
+    <div style="position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, #C1672A00, #28211A50)"></div>
+    
+  <div style="position: relative; z-index: 2; padding: 26svh 26px 22svh; color: #fff; text-shadow: 0px 1px 14px #2A4B23; text-align: center">
+      
+      
+      <h2 style="margin:0 0 20px;font-size:29px;font-weight:500;line-height:1.5;letter-spacing:.04em">大地の恵みを、まっすぐに。</h2><p style="margin: 0; font-size: 17px; line-height: 2.15; letter-spacing: .05em; text-wrap: pretty">
+        土を耕し、種をまき、作物を育てる。<br>
+        自然のリズムに寄り添い、まっすぐに、ていねいに。<br>
+        土の子ファームは、安心でおいしい野菜を通じて、<br>
+        豊かな食卓と笑顔をお届けします。
+      </p>
+    </div></section>
+
+  <section id="about-us" style="position:relative;z-index:2;background:#efe6d2;padding:112px 0 72px;overflow:hidden">
+    <div aria-hidden="true" style="position:absolute;left:0;right:0;top:-1px;transform:translateY(-100%);height:120px;pointer-events:none;z-index:3">
+      <image-slot id="soil-edge-about-us-top" shape="rect" fit="cover" placeholder="土の帯PNG（透過・上向き）"></image-slot>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin:0 0 28px">
+      <div style="display:flex;flex-direction:row-reverse;align-items:flex-start;gap:8px;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:22px 13px 28px">
+        <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:.18em;line-height:1">私たちについて</h2>
+      </div>
+    </div>
+
+    <div style="position:relative;padding:0 26px">
+      <div style="position:absolute;z-index:0;left:-26px;top:-140px;width:53%;max-width:250px;aspect-ratio:5 / 4;background:#e6dcc2;overflow:hidden">
+        <image-slot id="about-us-photo-3" shape="rect" fit="cover" placeholder="農園の写真"></image-slot>
+      </div>
+      <div style="position:absolute;z-index:0;right:-16px;top:22%;width:44%;max-width:210px;aspect-ratio:1 / 1;background:#e6dcc2;overflow:hidden">
+        <image-slot id="about-us-photo-1" shape="rect" fit="cover" placeholder="農園の写真"></image-slot>
+      </div>
+      <div style="position:absolute;z-index:0;left:-16px;bottom:-34px;width:42%;max-width:195px;aspect-ratio:1 / 1;background:#e6dcc2;overflow:hidden">
+        <image-slot id="about-us-photo-2" shape="rect" fit="cover" placeholder="農園の写真"></image-slot>
+      </div>
+      <p style="position:relative;z-index:1;margin:0;padding:0 0 40px;text-shadow:0 1px 10px rgba(239,230,210,.95),0 0 22px rgba(239,230,210,.9);font-family:'Zen Kurenaido','Zen Old Mincho',serif;font-size:15px;line-height:2.3;letter-spacing:.05em;color:#3d3119;text-align:center;text-wrap:pretty">
+        土の子ファームは、家族で野菜を育てる小さな農園です。<br>
+        化学肥料にたよらず、堆肥で土を育てることを続けています。<br>
+        土がふかふかになるまでには何年もかかりますが、<br>
+        そのぶん野菜は自分の力でしっかりと育ってくれます。<br>
+        <br>
+        朝は日が出るころから畑に出て、その日にいちばん<br>
+        おいしくなっている野菜から順に収穫します。<br>
+        畑のとなりに直売所があり、朝採れの野菜を<br>
+        その日のうちにお渡ししています。<br>
+        <br>
+        季節がめぐるたび、畑の顔つきも変わります。<br>
+        春の葉もの、夏の実もの、秋冬の根もの。<br>
+        そのときいちばんの野菜を食べていただきたくて、<br>
+        毎日すこしずつ土と向き合っています。
+      </p>
+    </div>
+  </section>
+
+  <section id="news" style="position: relative; z-index: 2; padding: 208px 0 224px; background-color: #EFE6D2">
+    
+    <div style="position:absolute;left:18px;top:190px;z-index:5;display:flex;flex-direction:row-reverse;align-items:flex-start;gap:8px;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:20px 12px 26px">
+      <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:.18em;line-height:1">農園のできごと</h2>
+    </div>
+
+    <div data-rail="" style="display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px max(14px, calc((100vw - min(78vw, 320px)) / 2)) 8px max(80px, calc((100vw - min(78vw, 320px)) / 2))">
+      <sc-for list="{{ postsLoop }}" as="post" hint-placeholder-count="5">
+        <a href="#" style="flex:0 0 auto;width:78vw;max-width:320px;scroll-snap-align:center;display:flex;flex-direction:column;background:#fdfaf2;border:1px solid #ddd0b2;border-radius:2px;padding:18px 18px 22px;color:#2f2413;box-shadow:0 6px 20px rgba(47,36,19,.07)">
+          <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px">
+            <div style="display:flex;align-items:baseline;gap:8px">
+              <span style="font-size:12px;letter-spacing:.1em;color:#8a7a5c">{{ post.ym }}</span>
+              <span style="font-size:34px;line-height:1;letter-spacing:.02em">{{ post.day }}</span>
+            </div>
+            <span style="font-size:11px;letter-spacing:.16em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:5px 11px;white-space:nowrap">{{ post.category }}</span>
+          </div>
+          <div style="position:relative;width:100%;aspect-ratio:4 / 3;background:#e6dcc2;margin:0 0 16px;overflow:hidden">
+            <image-slot id="{{ post.key }}" shape="rect" fit="cover" placeholder="ブログ画像"></image-slot>
+          </div>
+          <h3 style="margin:0 0 10px;font-size:17px;font-weight:500;line-height:1.6;letter-spacing:.03em">{{ post.title }}</h3>
+          <p style="margin:0;font-size:13px;line-height:1.95;letter-spacing:.04em;color:#5c4f34;text-wrap:pretty">{{ post.excerpt }}</p>
+        </a>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;justify-content:center;gap:8px;margin:22px 0 0">
+      <sc-for list="{{ posts }}" as="post" hint-placeholder-count="3">
+        <span style="width:6px;height:6px;border-radius:999px;background:#c1b090"></span>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;justify-content:center;margin:34px 0 0">
+      <a href="#" style="display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:52px;padding:0 44px;border:1px solid #6b5c3e;border-radius:999px;font-size:13px;letter-spacing:.28em;color:#3d3119;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">MORE</a>
+    </div>
+  </section>
+
+  <div aria-hidden="true" style="position:relative;z-index:2;width:100%;height:360px;background:#e6dcc2;overflow:hidden">
+    <image-slot id="between-news-recipe" shape="rect" fit="cover" placeholder="畑の写真（全幅の帯）"></image-slot>
+  </div>
+
+  <section id="recipe" style="{{ recipeSectionStyle }}">
+    <div style="position:absolute;left:18px;top:130px;z-index:5;display:flex;flex-direction:row-reverse;align-items:flex-start;gap:8px;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:20px 12px 26px">
+      <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:.18em;line-height:1">旬の野菜</h2>
+    </div>
+
+    
+
+    <div data-veg-rail="" style="{{ vegRailStyle }}">
+      <sc-for list="{{ veggies }}" as="veg" hint-placeholder-count="8">
+        <button type="button" onClick="{{ veg.onSelect }}" aria-pressed="{{ veg.pressedStr }}" style="{{ veg.buttonStyle }}">
+          <span style="{{ veg.iconStyle }}">
+            <img src="{{ veg.src }}" alt="{{ veg.name }}" style="width:100%;height:100%;object-fit:contain">
+          </span>
+        </button>
+      </sc-for>
+    </div>
+
+    <div style="{{ recipeWrapStyle }}">
+      <div style="{{ panelStyle }}">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 16px;padding:0 6px">
+          <h3 style="margin:0;font-size:17px;font-weight:500;letter-spacing:.06em;color:#2f2413">{{ selectedLabel }}</h3>
+          <span style="font-size:11px;letter-spacing:.2em;color:#6b5c3e">{{ recipeCountLabel }}</span>
+        </div>
+        <div data-recipe-rail="" style="display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:2px 6px 6px">
+          <sc-for list="{{ recipes }}" as="recipe" hint-placeholder-count="3">
+            <a href="#" style="{{ recipeCardStyle }}">
+              <div style="position:relative;width:100%;aspect-ratio:1 / 1;background:#e6dcc2;margin:0 0 12px;overflow:hidden">
+                <image-slot id="{{ recipe.slotId }}" shape="rect" fit="cover" placeholder="料理写真"></image-slot>
+              </div>
+              <h4 style="margin:0 0 8px;font-size:14px;font-weight:500;line-height:1.6;letter-spacing:.03em">{{ recipe.title }}</h4>
+              <p style="margin:0;font-size:12px;line-height:1.9;letter-spacing:.04em;color:#5c4f34;text-wrap:pretty">{{ recipe.note }}</p>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about-farm" style="position:relative;z-index:2;background:#efe6d2;padding:104px 0 116px">
+    
+    <div style="position:absolute;left:18px;top:22px;z-index:5;display:flex;flex-direction:row-reverse;align-items:flex-start;gap:8px;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:20px 12px 26px">
+      <h2 style="margin:0;font-size:22px;font-weight:700;letter-spacing:.18em;line-height:1">農園とアクセス</h2>
+    </div>
+
+    <div style="padding:0 26px 0 80px">
+      <dl style="display:grid;grid-template-columns:auto 1fr;gap:14px 20px;margin:0 0 36px;font-size:13.5px;line-height:1.85;letter-spacing:.04em">
+        <dt style="color:#8a7a5c;white-space:nowrap">農園名</dt>
+        <dd style="margin:0;color:#2f2413">土の子ファーム</dd>
+        <dt style="color:#8a7a5c;white-space:nowrap">所在地</dt>
+        <dd style="margin:0;color:#2f2413">〒000-0000<br>（住所をご共有ください）</dd>
+        <dt style="color:#8a7a5c;white-space:nowrap">直売所</dt>
+        <dd style="margin:0;color:#2f2413">9:00 – 16:00</dd>
+        <dt style="color:#8a7a5c;white-space:nowrap">定休日</dt>
+        <dd style="margin:0;color:#2f2413">水曜・日曜</dd>
+        <dt style="color:#8a7a5c;white-space:nowrap">電話</dt>
+        <dd style="margin:0;color:#2f2413">000-0000-0000</dd>
+      </dl>
+
+      <div style="position:relative;width:100%;aspect-ratio:4 / 3;background:#e6dcc2;overflow:hidden;margin:0 0 24px">
+        <image-slot id="access-map" shape="rect" fit="cover" placeholder="地図（Googleマップのスクリーンショット等）"></image-slot>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:18px;margin:0 0 32px">
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">お車で</span>
+          <span style="font-size:13.5px;line-height:1.9;letter-spacing:.04em;color:#2f2413">最寄インターチェンジから約15分。直売所前に駐車場をご用意しています。</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">電車・バスで</span>
+          <span style="font-size:13.5px;line-height:1.9;letter-spacing:.04em;color:#2f2413">最寄駅からバスで約20分、バス停より徒歩5分です。</span>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:center">
+        <a href="#" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 40px;border:1px solid #6b5c3e;border-radius:999px;font-size:12.5px;letter-spacing:.24em;color:#3d3119;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">地図を開く</a>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact" style="position:relative;z-index:2;background:#14100a;color:#efe6d2;padding:100px 26px 44px">
+    <div style="max-width:1080px;margin:0 auto;display:flex;flex-direction:column;gap:48px">
+      <div style="display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+          <div style="position:relative;width:132px;height:48px">
+            <image-slot id="footer-logo" shape="rect" fit="contain" placeholder="ロゴ"></image-slot>
+          </div>
+          <p style="margin:0;font-size:13px;line-height:2;letter-spacing:.06em;color:#c8bb9e;text-wrap:pretty">土に育てられた野菜を、そのままの姿でお届けします。</p>
+        </div>
+
+        <nav style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">サイトマップ</span>
+          <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+            <li><a href="#about" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">私たちについて</a></li>
+            <li><a href="#recipe" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">旬の野菜</a></li>
+            <li><a href="#news" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">お知らせ</a></li>
+            <li><a href="#about-farm" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">農園とアクセス</a></li>
+          </ul>
+        </nav>
+
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">お問い合わせ</span>
+          <dl style="display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:13px;line-height:1.9;letter-spacing:.04em">
+            <dt style="color:#8a7a5c;white-space:nowrap">電話</dt>
+            <dd style="margin:0">000-0000-0000</dd>
+            <dt style="color:#8a7a5c;white-space:nowrap">受付</dt>
+            <dd style="margin:0">9:00 – 16:00（水・日 休）</dd>
+            <dt style="color:#8a7a5c;white-space:nowrap">所在地</dt>
+            <dd style="margin:0">〒000-0000<br>（住所をご共有ください）</dd>
+          </dl>
+          <a href="#" style="display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 32px;margin:6px 0 0;border:1px solid #6b5c3e;border-radius:999px;font-size:12px;letter-spacing:.24em;color:#efe6d2;transition:background .25s ease,color .25s ease" style-hover="background:#efe6d2;color:#14100a;border-color:#efe6d2">メールで問い合わせる</a>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #3a3020;padding:22px 0 0">
+        <small style="font-size:11px;letter-spacing:.14em;color:#8a7a5c">© 2026 土の子ファーム</small>
+        <div style="display:flex;gap:22px">
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">プライバシーポリシー</a>
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:390,&quot;height&quot;:844}}">
+const EXITS = {
+  "1": [-115, -115],
+  "2": [115, -115],
+  "3": [-120, 0],
+  "4": [115, 115],
+  "5": [-115, 115]
+};
+
+const POSTS = [
+  { ym: "2026.7", day: "23", category: "イベント", slotId: "blog-1", title: "夏の収穫体験、参加者を募集します", excerpt: "土に触れ、育った野菜をその場で収穫する一日。ご家族での参加も歓迎しています。" },
+  { ym: "2026.7", day: "08", category: "農園日誌", slotId: "blog-2", title: "梅雨明けの畑と、トマトの様子", excerpt: "長雨のあとの畑は驚くほど元気です。実の色づきが一気に進みました。" },
+  { ym: "2026.6", day: "30", category: "お知らせ", slotId: "blog-3", title: "直売所の営業時間を変更します", excerpt: "夏季のあいだ、朝の時間帯を早めて営業いたします。詳細はこちらから。" },
+  { ym: "2026.6", day: "12", category: "農園日誌", slotId: "blog-4", title: "新しい畝を立てました", excerpt: "秋冬野菜に向けた土づくりの季節です。堆肥をすき込み、休ませます。" },
+  { ym: "2026.5", day: "28", category: "レシピ", slotId: "blog-5", title: "採れたて人参の食べ方", excerpt: "皮ごと薄切りにして、塩とオイルだけで。素材の甘さがよくわかります。" }
+];
+
+const R = (id, fb) => (window.__resources && window.__resources[id]) || fb;
+const VEG_IMG = {
+  carrot: R("veg_carrot", "sa/veg-carrot.webp"),
+  tomato: R("veg_tomato", "sa/veg-tomato.webp"),
+  potato: R("veg_potato", "sa/veg-potato.webp"),
+  onion: R("veg_onion", "sa/veg-onion.webp"),
+  spinach: R("veg_spinach", "sa/veg-spinach.webp"),
+  daikon: R("veg_daikon", "sa/veg-daikon.webp"),
+  corn: R("veg_corn", "sa/veg-corn.webp"),
+  lettuce: R("veg_lettuce", "sa/veg-lettuce.webp")
+};
+
+const VEGGIES = [
+  { id: "carrot", name: "にんじん", tint: "#f3dcc2", offset: 0, recipes: [
+    { title: "にんじんのラペ", note: "せん切りにして塩をふり、レモンとオイルで和えるだけ。" },
+    { title: "丸ごとグリル", note: "皮つきのままじっくり焼くと、驚くほど甘くなります。" },
+    { title: "にんじんポタージュ", note: "玉ねぎと煮てなめらかに。朝食にも合う一杯です。" },
+    { title: "にんじんのきんぴら", note: "細切りにして炒め、醤油とみりんで味を含ませます。" },
+    { title: "にんじんの葉のふりかけ", note: "刻んで乾煎りし、ごまと塩で仕上げます。" }
+  ] },
+  { id: "tomato", name: "トマト", tint: "#f2d3cd", offset: 22, recipes: [
+    { title: "冷やしトマトの出汁びたし", note: "湯むきして出汁に浸すだけ。夏の常備菜に。" },
+    { title: "トマトと卵の炒めもの", note: "強火で手早く。塩とごま油で仕上げます。" },
+    { title: "焼きトマトのマリネ", note: "半分に切って焼き、オイルと酢に漬けます。" },
+    { title: "トマトの冷製パスタ", note: "角切りにして塩をなじませ、麺と和えるだけ。" },
+    { title: "トマトごはん", note: "丸ごと入れて炊き、混ぜてほぐします。" }
+  ] },
+  { id: "potato", name: "じゃがいも", tint: "#eee2c6", offset: 8, recipes: [
+    { title: "皮ごとポテト", note: "蒸してから焼くと、ほくほくと香ばしく。" },
+    { title: "冷たいじゃがいもスープ", note: "牛乳でのばして冷やすだけの一品です。" },
+    { title: "ポテトサラダ", note: "粗くつぶして、玉ねぎの辛みを効かせます。" },
+    { title: "じゃがいものガレット", note: "せん切りをフライパンで焼き、両面をこんがりと。" },
+    { title: "新じゃがの煮ころがし", note: "小さいものを丸ごと、甘辛く煮からめます。" }
+  ] },
+  { id: "spinach", name: "ほうれん草", tint: "#dde6cd", offset: 30, recipes: [
+    { title: "おひたし", note: "さっと茹でて水気をきり、出汁醤油をかけます。" },
+    { title: "バターソテー", note: "強火で一気に。塩とこしょうだけで十分です。" },
+    { title: "ほうれん草の白和え", note: "水きり豆腐とすりごまでやさしい味に。" },
+    { title: "ほうれん草のポタージュ", note: "茹でてから撹拌し、牛乳でのばします。" },
+    { title: "ほうれん草とベーコンの卵とじ", note: "塩気を活かして、卵でふんわりまとめます。" }
+  ] },
+  { id: "onion", name: "たまねぎ", tint: "#eee6d0", offset: 4, recipes: [
+    { title: "焼きたまねぎ", note: "厚切りにして両面を焼き、醤油をひとまわし。" },
+    { title: "オニオンスープ", note: "ゆっくり炒めるほど甘みが出ます。" },
+    { title: "新たまねぎのサラダ", note: "薄切りを水にさらさず、鰹節と醤油で。" },
+    { title: "たまねぎの丸ごと蒸し", note: "皮ごと蒸して、塩とオイルをかけます。" },
+    { title: "あめ色オニオンの常備菜", note: "多めに炒めて冷凍。汁物や炒め物の下地に。" }
+  ] },
+  { id: "daikon", name: "だいこん", tint: "#e8ead9", offset: 12, src: R("veg_daikon2", "sa/daikon2.webp"), recipes: [
+    { title: "ふろふき大根", note: "米のとぎ汁で煮て、味噌だれをのせます。" },
+    { title: "大根と柚子の甘酢", note: "薄切りにして甘酢に漬け、柚子皮を散らして。" },
+    { title: "大根と鶏の煮もの", note: "下茹でしてから煮ると味がよく染みます。" },
+    { title: "大根おろしのみぞれ和え", note: "軽く水気をきり、焼いた具材にのせます。" },
+    { title: "切り干し大根の炒め煮", note: "戻し汁ごと煮て、うまみを残します。" }
+  ] },
+  { id: "lettuce", name: "レタス", tint: "#dfe8d2", offset: 18, src: R("veg_lettuce2", "sa/lettuce2.webp"), recipes: [
+    { title: "レタスのごま油炒め", note: "強火でさっと。しゃきしゃき感を残すのがこつです。" },
+    { title: "まるごとレタスサラダ", note: "手で大きくちぎり、塩とオイルだけで和えます。" },
+    { title: "レタスと卵のスープ", note: "仕上げに加えて余熱で火を通します。" },
+    { title: "レタスの肉巻き", note: "豚肉で巻いて蒸し、ポン酢でさっぱりと。" },
+    { title: "レタスチャーハン", note: "最後に入れて、火を止めてから混ぜます。" }
+  ] },
+  { id: "corn", name: "とうもろこし", tint: "#f2e6bf", offset: 34, recipes: [
+    { title: "蒸しとうもろこし", note: "皮つきのまま蒸すと、香りが逃げません。" },
+    { title: "コーンごはん", note: "芯ごと炊き込むと、甘い出汁が出ます。" },
+    { title: "焼きとうもろこし", note: "醤油をぬって網で焼き、香ばしく仕上げます。" },
+    { title: "コーンのかき揚げ", note: "実をそいで衣少なめ、さくっと揚げます。" },
+    { title: "コーンポタージュ", note: "すりつぶして裏ごし、牛乳でのばします。" }
+  ] }
+];
+
+class Component extends DCLogic {
+  state = { menuOpen: false, veg: "carrot", isPC: false };
+
+  componentDidMount() {
+    this.reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    this.last = -1;
+    this.apply = (p) => {
+      this.last = p;
+      const e = p < 1 ? 1 - Math.pow(1 - p, 3) : 1;
+      for (const el of document.querySelectorAll("[data-soil]")) {
+        const t = EXITS[el.getAttribute("data-soil")];
+        el.style.transform = "translate3d(" + (t[0] * e).toFixed(3) + "%," + (t[1] * e).toFixed(3) + "%,0)";
+      }
+    };
+    this.startAutoSlide();
+    this.onViewport = () => {
+      const pc = window.matchMedia("(min-width: 900px)").matches;
+      if (pc !== this.state.isPC) this.setState({ isPC: pc });
+    };
+    window.addEventListener("resize", this.onViewport, { passive: true });
+    this.onViewport();
+    this.setupVegLoop = () => {
+      const el = document.querySelector("[data-veg-rail]");
+      if (!el) { requestAnimationFrame(this.setupVegLoop); return; }
+      if (el.__loopWired) return;
+      el.__loopWired = true;
+      const third = () => el.scrollWidth / 3;
+      const center = () => { const t = third(); if (t > 0) el.scrollLeft = t; };
+      requestAnimationFrame(center);
+      setTimeout(center, 500);
+      setTimeout(center, 1500);
+      el.addEventListener("scroll", () => {
+        const t = third();
+        if (t <= 0) return;
+        if (el.scrollLeft < t * 0.5) el.scrollLeft += t;
+        else if (el.scrollLeft > t * 1.5) el.scrollLeft -= t;
+      }, { passive: true });
+    };
+    this.setupVegLoop();
+    this.syncHeaderLogo = (visible) => {
+      const logo = document.querySelector("[data-header-logo]");
+      if (!logo) return;
+      logo.style.opacity = visible ? "1" : "0";
+      logo.style.visibility = visible ? "visible" : "hidden";
+    };
+    if (this.reduced) { this.apply(1); this.syncHeaderLogo(true); return; }
+    this.tick = () => {
+      this.queued = false;
+      const section = document.querySelector("[data-opening]");
+      if (!section) return;
+      const r = section.getBoundingClientRect();
+      const span = window.innerHeight || 1;
+      this.apply(Math.min(1, Math.max(0, -r.top / span)));
+      this.syncHeaderLogo(r.bottom <= 0);
+    };
+    this.onScroll = () => {
+      if (this.queued) return;
+      this.queued = true;
+      requestAnimationFrame(this.tick);
+    };
+    window.addEventListener("scroll", this.onScroll, { passive: true });
+    window.addEventListener("resize", this.onScroll, { passive: true });
+    this.tick();
+  }
+
+  startAutoSlide() {
+    let paused = 0;
+    const rail = () => document.querySelector("[data-rail]");
+    const setWidth = (el) => el.scrollWidth / 3;
+
+    const center = () => {
+      const el = rail();
+      if (!el || el.children.length < 3) return false;
+      el.scrollLeft = setWidth(el);
+      return true;
+    };
+    let tries = 0;
+    const seed = () => { if (!center() && tries++ < 40) requestAnimationFrame(seed); };
+    seed();
+
+    this.normalize = () => {
+      const el = rail();
+      if (!el || el.children.length < 3) return;
+      const w = setWidth(el);
+      if (el.scrollLeft > w * 1.75) el.scrollLeft -= w;
+      else if (el.scrollLeft < w * 0.25) el.scrollLeft += w;
+    };
+    this.onRailScroll = () => {
+      clearTimeout(this.settle);
+      this.settle = setTimeout(this.normalize, 160);
+    };
+    const el0 = rail();
+    if (el0) el0.addEventListener("scroll", this.onRailScroll, { passive: true });
+
+    if (this.reduced) return;
+    this.railTimer = setInterval(() => {
+      const el = rail();
+      if (!el || Date.now() < paused || !el.children.length) return;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      el.scrollBy({ left: el.children[0].getBoundingClientRect().width + 16, behavior: "smooth" });
+    }, 3600);
+    this.onRailTouch = () => { paused = Date.now() + 8000; };
+    document.addEventListener("pointerdown", this.onRailTouch, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this.railTimer) clearInterval(this.railTimer);
+    const el = document.querySelector("[data-rail]");
+    if (el && this.onRailScroll) el.removeEventListener("scroll", this.onRailScroll);
+    if (this.onRailTouch) document.removeEventListener("pointerdown", this.onRailTouch);
+    if (this.onViewport) window.removeEventListener("resize", this.onViewport);
+    if (this.onScroll) {
+      window.removeEventListener("scroll", this.onScroll);
+      window.removeEventListener("resize", this.onScroll);
+    }
+  }
+
+  renderVals() {
+    const open = this.state.menuOpen;
+    const selected = VEGGIES.find((v) => v.id === this.state.veg) || VEGGIES[0];
+    const pc = this.state.isPC;
+    const size = pc ? 420 : 468;
+    return {
+      recipeSectionStyle: "position:relative;z-index:1;background-color:#FBF7EE;"
+        + (pc ? "padding:176px 0 40px;min-height:540px" : "padding:104px 0 116px"),
+      recipeLeadStyle: pc ? "width:56%;margin:0 0 40px auto;padding:0 4% 0 0;position:relative;z-index:2" : "padding:0 26px 0 82px;margin:0 0 26px",
+      vegRailStyle: pc
+        ? "position:absolute;left:-70px;right:-70px;top:50%;transform:translateY(-50%);z-index:1;display:flex;flex-direction:row;align-items:center;gap:0px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;padding:0 70px"
+        : "display:flex;align-items:flex-start;gap:22px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:8px 20px 26px 80px",
+      recipeWrapStyle: pc ? "position:absolute;z-index:2;right:0;top:0;bottom:0;width:42%;padding:120px 28px 60px;min-width:0;display:flex;flex-direction:column" : "padding:0 18px 0 80px",
+      recipeCardStyle: "flex:0 0 auto;scroll-snap-align:start;display:flex;flex-direction:column;background:#fdfaf2;border:1px solid rgba(107,92,62,.22);border-radius:2px;padding:12px;color:#2f2413;"
+        + (pc ? "width:250px" : "width:60%;max-width:220px"),
+      veggies: VEGGIES.concat(VEGGIES, VEGGIES).map((v, i) => {
+        const on = v.id === this.state.veg;
+        const zig = (i % 2 === 0 ? -1 : 1) * 46;
+        return {
+          name: v.name,
+          slotId: "veg3-" + v.id + "-" + i,
+          src: VEG_IMG[v.id] ? encodeURI(VEG_IMG[v.id]) : "",
+          pressedStr: on ? "true" : "false",
+          onSelect: () => this.setState({ veg: v.id }),
+          buttonStyle: "flex:0 0 auto;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;background:none;border:0;padding:0;cursor:pointer;"
+            + (pc ? "margin-top:" + zig + "px;margin-left:" + (i === 0 ? 0 : -76) + "px;" : "margin-top:" + v.offset + "px;")
+            + "transition:transform .28s ease;transform:scale(" + (on ? 1.1 : 0.94) + ")",
+          slotWrapStyle: "position:absolute;left:50%;top:50%;width:220px;height:220px;transform:translate(-50%,-50%) scale(" + (size / 220).toFixed(4) + ");transform-origin:center",
+          iconStyle: "position:relative;display:block;width:" + size + "px;height:" + size + "px;",
+          labelStyle: "font-size:11px;letter-spacing:.08em;white-space:nowrap;transition:color .28s ease;color:" + (on ? "#2f2413" : "#8a7a5c")
+        };
+      }),
+      selectedLabel: (selected.name || "") + "のレシピ",
+      recipeCountLabel: (selected.recipes || []).length + " RECIPES",
+      panelStyle: "background:#ffffff;border:1px solid #14100a;border-radius:0;transition:background .35s ease;"
+        + (pc ? "flex:1;display:flex;flex-direction:column;padding:28px 20px 26px" : "padding:20px 12px 18px"),
+      recipes: (selected.recipes || []).map((r, i) => Object.assign({}, r, { slotId: "recipe-" + selected.id + "-" + i })),
+      posts: POSTS,
+      postsLoop: POSTS.concat(POSTS, POSTS).map((p, i) => Object.assign({}, p, { key: p.slotId + "-" + i })),
+      menuOpenStr: open ? "true" : "false",
+      menuClosedStr: open ? "false" : "true",
+      menuStyle: "position:fixed;inset:0;z-index:29;display:flex;align-items:center;justify-content:center;"
+        + "background:rgba(20,13,5,.94);transition:opacity .35s ease, visibility .35s ease;"
+        + (open ? "opacity:1;visibility:visible;pointer-events:auto;" : "opacity:0;visibility:hidden;pointer-events:none;"),
+      toggleMenu: () => this.setState((s) => ({ menuOpen: !s.menuOpen })),
+      closeMenu: () => this.setState({ menuOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

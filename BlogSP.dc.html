@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>農園ブログ（SP）｜土の子ファーム</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;500;600;700&amp;family=Zen+Kurenaido&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#efe6d2}
+a{color:#2f2413;text-decoration:none}
+a:hover{color:#6b5c3e}
+a:focus-visible,button:focus-visible{outline:2px solid #3d3119;outline-offset:3px}
+input::placeholder{color:#8a7a5c}
+input[type=search]::-webkit-search-cancel-button{-webkit-appearance:none}
+@keyframes tk-in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (max-width: 359px){.bs-intro{font-size:13.5px !important}.bs-head{font-size:17px !important}}
+@media (min-width: 600px){.bs-grid{grid-template-columns:repeat(2, minmax(0, 1fr)) !important}}
+@media (prefers-reduced-motion: reduce){*{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+</style>
+</helmet>
+<div style="position:relative;width:100%;min-height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#FBF7EE;font-family:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;color:#2f2413;-webkit-font-smoothing:antialiased">
+
+  <!-- ヒーロー（レシピ一覧と同じ、写真＋縦書きの見出し箱） -->
+  <section style="position:relative;height:460px;overflow:hidden;background:#e6dcc2">
+    <img src="recipe-assets/hero-field.webp" alt="" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:38% 50%">
+    <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg, rgba(20,16,10,.5) 0%, rgba(20,16,10,0) 28%, rgba(40,33,26,0) 60%, rgba(40,33,26,.42) 100%)"></div>
+
+    <!-- ヘッダー -->
+    <header style="position:absolute;z-index:5;top:0;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:14px 18px">
+      <a href="土の子FARM%20SP.dc.html" aria-label="土の子ファーム トップへ" style="display:block">
+        <img src="recipe-assets/logo-white.webp" alt="土の子ファーム" style="display:block;width:48px;height:48px;object-fit:contain">
+      </a>
+      <button type="button" onClick="{{ toggleMenu }}" aria-label="メニュー" aria-expanded="{{ menuOpenStr }}" style="width:44px;height:44px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:7px;background:none;border:0;padding:0;cursor:pointer">
+        <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+        <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+        <span style="display:block;width:26px;height:1.5px;background:#fff"></span>
+      </button>
+    </header>
+
+    <!-- ページタイトル -->
+    <div style="position:absolute;z-index:3;left:0;right:0;top:112px;display:flex;justify-content:center;align-items:flex-start;gap:28px">
+      <p style="margin:56px 0 0;writing-mode:vertical-rl;font-size:17px;font-weight:500;line-height:1.9;letter-spacing:.24em;color:#fff;text-shadow:0 1px 14px #2A4B23">畑の毎日を、<br>お届けします。</p>
+      <div style="display:flex;writing-mode:vertical-rl;background:#fff;color:#14100a;border:1px solid #14100a;padding:22px 13px 28px">
+        <h1 style="margin:0;font-size:34px;font-weight:700;letter-spacing:.18em;line-height:1">農園ブログ</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- 導入文 -->
+  <section style="background:#efe6d2;padding:52px 26px 56px">
+    <p class="bs-intro" style="margin:0;font-family:'Zen Kurenaido','Zen Old Mincho',serif;font-size:15px;line-height:2.3;letter-spacing:.05em;color:#3d3119;text-align:center;text-wrap:pretty">畑の様子やイベントのご案内、<br>直売所からのお知らせを綴っています。<br>土の子ファームの毎日をご覧ください。</p>
+  </section>
+
+  <!-- メニュー（TOPと同じ全面の暗幕） -->
+  <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+    <nav aria-label="サイトメニュー" style="position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;background:rgba(20,13,5,.94);padding:14px 18px">
+      <div style="display:flex;justify-content:flex-end">
+        <button type="button" onClick="{{ toggleMenu }}" aria-label="メニューを閉じる" style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:none;border:0;padding:0;cursor:pointer;color:#fff">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+        </button>
+      </div>
+      <ul style="list-style:none;margin:auto 0;padding:0 0 58px;display:flex;flex-direction:column;gap:28px;text-align:center">
+        <li><a href="土の子FARM%20SP.dc.html#about" style="font-size:19px;letter-spacing:.14em;color:#fff">私たちについて</a></li>
+        <li><a href="土の子FARM%20SP.dc.html#vegetables" style="font-size:19px;letter-spacing:.14em;color:#fff">野菜づくり</a></li>
+        <li><a href="RecipesSP.dc.html" style="font-size:19px;letter-spacing:.14em;color:#fff">レシピ</a></li>
+        <li><a href="#" onClick="{{ toggleMenu }}" aria-current="page" style="font-size:19px;letter-spacing:.14em;color:#fff;border-bottom:1px solid #fff;padding-bottom:6px">お知らせ</a></li>
+        <li><a href="土の子FARM%20SP.dc.html#contact" style="font-size:19px;letter-spacing:.14em;color:#fff">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </sc-if>
+
+  <!-- 検索・絞り込み -->
+  <section aria-label="記事を探す" style="position:relative;z-index:2;padding:44px 18px 0">
+    <label style="position:relative;display:flex;align-items:center;height:48px;background:#fdfaf2;border:1px solid #c9b892;border-radius:999px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3d3119" stroke-width="1.6" stroke-linecap="round" aria-hidden="true" style="position:absolute;left:20px;top:14px"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21"></path></svg>
+      <span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">記事を検索</span>
+      <input type="search" value="{{ query }}" onInput="{{ onQuery }}" placeholder="キーワードで探す" style="position:absolute;left:48px;right:20px;top:0;height:46px;border:0;background:transparent;font-family:inherit;font-size:13px;letter-spacing:.1em;color:#2f2413;outline:none">
+    </label>
+
+    <div style="margin-top:20px;display:grid;grid-template-columns:repeat(5, minmax(0, 1fr));gap:6px">
+      <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="5">
+        <button type="button" onClick="{{ t.pick }}" aria-pressed="{{ t.pressed }}" style="{{ t.style }}">{{ t.label }}</button>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- 記事一覧（レシピ一覧と同じ、白地に墨の枠） -->
+  <section aria-label="記事一覧" style="position:relative;z-index:2;padding:32px 18px 0">
+    <div style="background:#ffffff;border:1px solid #14100a;padding:20px 12px 20px">
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin:0 0 16px;padding:0 4px">
+        <h2 class="bs-head" style="margin:0;font-size:19px;font-weight:500;letter-spacing:.06em;color:#14100a">{{ filterLabel }}</h2>
+        <span style="font-size:11px;letter-spacing:.2em;color:#6b5c3e;white-space:nowrap">{{ countLabel }}</span>
+      </div>
+
+      <div class="bs-grid" style="display:grid;grid-template-columns:minmax(0, 1fr);gap:14px 12px">
+        <sc-for list="{{ posts }}" as="p" hint-placeholder-count="5">
+          <a href="{{ p.href }}" onClick="{{ p.open }}" aria-haspopup="dialog" style="display:flex;flex-direction:column;background:#fdfaf2;border:1px solid rgba(107,92,62,.22);border-radius:2px;padding:16px 16px 18px;color:#2f2413;animation:tk-in .6s ease both">
+            <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 14px">
+              <time datetime="{{ p.iso }}" style="display:flex;align-items:baseline;gap:8px">
+                <span style="font-size:11.5px;letter-spacing:.1em;color:#8a7a5c">{{ p.year }}</span>
+                <span style="font-size:28px;line-height:1;letter-spacing:.02em">{{ p.md }}</span>
+              </time>
+              <span style="font-size:10.5px;letter-spacing:.14em;color:#6b5c3e;border:1px solid #c9b892;border-radius:999px;padding:4px 10px;white-space:nowrap">{{ p.category }}</span>
+            </div>
+            <div style="position:relative;aspect-ratio:4 / 3;overflow:hidden;background:#e6dcc2;margin:0 0 14px">
+              <img src="{{ p.img }}" alt="" style="position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover">
+            </div>
+            <h3 style="margin:0 0 8px;font-size:17px;font-weight:500;line-height:1.6;letter-spacing:.03em">{{ p.title }}</h3>
+            <p style="margin:0;font-size:12.5px;line-height:1.95;letter-spacing:.04em;color:#5c4f34;text-wrap:pretty">{{ p.excerpt }}</p>
+            <span style="margin-top:auto;padding-top:14px;font-size:11.5px;letter-spacing:.2em;color:#6b5c3e">続きを読む →</span>
+          </a>
+        </sc-for>
+      </div>
+
+      <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:40px 8px 36px;text-align:center">
+          <p style="margin:0 0 22px;font-size:13.5px;line-height:2;letter-spacing:.06em;color:#3d3119">条件に合う記事が見つかりませんでした。<br>ほかのカテゴリーでも探してみてください。</p>
+          <button type="button" onClick="{{ resetAll }}" style="min-height:52px;padding:0 36px;background:none;border:1px solid #6b5c3e;border-radius:999px;font-family:inherit;font-size:12.5px;letter-spacing:.2em;color:#3d3119;cursor:pointer;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">すべての記事を見る</button>
+        </div>
+      </sc-if>
+    </div>
+  </section>
+
+  <div style="display:flex;justify-content:center;margin:48px 0 0;padding:0 0 116px">
+    <a href="土の子FARM%20SP.dc.html" style="display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:0 40px;border:1px solid #6b5c3e;border-radius:999px;font-size:12.5px;letter-spacing:.24em;color:#3d3119;transition:background .25s ease,color .25s ease" style-hover="background:#3d3119;color:#efe6d2;border-color:#3d3119">トップへ戻る</a>
+  </div>
+
+  <!-- フッター（TOPと同じ） -->
+  <footer style="position:relative;z-index:2;margin-top:auto;background:#14100a;color:#efe6d2;padding:100px 26px 44px">
+    <div style="display:flex;flex-direction:column;gap:48px">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <img src="recipe-assets/logo-white.webp" alt="土の子ファーム" style="display:block;width:48px;height:48px;object-fit:contain">
+        <p style="margin:0;font-size:13px;line-height:2;letter-spacing:.06em;color:#c8bb9e;text-wrap:pretty">土に育てられた野菜を、そのままの姿でお届けします。</p>
+      </div>
+
+      <nav aria-label="サイトマップ" style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">サイトマップ</span>
+        <ul style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px">
+          <li><a href="土の子FARM%20SP.dc.html#about" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">私たちについて</a></li>
+          <li><a href="土の子FARM%20SP.dc.html#recipe" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">旬の野菜</a></li>
+          <li><a href="RecipesSP.dc.html" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">レシピ</a></li>
+          <li><a href="#" aria-current="page" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">農園ブログ</a></li>
+          <li><a href="土の子FARM%20SP.dc.html#about-farm" style="font-size:13.5px;letter-spacing:.1em;color:#efe6d2">農園とアクセス</a></li>
+        </ul>
+      </nav>
+
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <span style="font-size:11px;font-weight:700;letter-spacing:.22em;color:#8a7a5c">お問い合わせ</span>
+        <dl style="display:grid;grid-template-columns:auto 1fr;gap:10px 18px;margin:0;font-size:13px;line-height:1.9;letter-spacing:.04em">
+          <dt style="color:#8a7a5c;white-space:nowrap">電話</dt>
+          <dd style="margin:0">000-0000-0000</dd>
+          <dt style="color:#8a7a5c;white-space:nowrap">受付</dt>
+          <dd style="margin:0">9:00 – 16:00（水・日 休）</dd>
+          <dt style="color:#8a7a5c;white-space:nowrap">所在地</dt>
+          <dd style="margin:0">〒000-0000<br>（住所をご共有ください）</dd>
+        </dl>
+        <a href="#" style="align-self:flex-start;display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 32px;margin:6px 0 0;border:1px solid #6b5c3e;border-radius:999px;font-size:12px;letter-spacing:.24em;color:#efe6d2;transition:background .25s ease,color .25s ease" style-hover="background:#efe6d2;color:#14100a;border-color:#efe6d2">メールで問い合わせる</a>
+      </div>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid #3a3020;padding:22px 0 0">
+        <small style="font-size:11px;letter-spacing:.14em;color:#8a7a5c">© 2026 土の子ファーム</small>
+        <div style="display:flex;gap:22px">
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">プライバシーポリシー</a>
+          <a href="#" style="font-size:11px;letter-spacing:.16em;color:#c8bb9e">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 記事詳細モーダル -->
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position:fixed;inset:0;z-index:60;display:flex;justify-content:center;align-items:flex-start;padding-top:78px;box-sizing:border-box">
+      <button type="button" onClick="{{ closeModal }}" aria-label="記事を閉じる" style="position:absolute;inset:0;border:0;padding:0;background:rgba(20,13,5,.62);cursor:default"></button>
+      <div style="position:relative">
+        <dc-import name="BlogModal" post="{{ openPost }}" variant="sp" on-close="{{ closeModal }}" on-step="{{ stepPost }}" hint-size="362px,1000px"></dc-import>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"previewDetail":{"editor":"boolean","default":false},"$preview":{"width":390,"height":3600}}'>
+// 記事の一覧（TOPの「農園ブログ」と同じ内容。本文は BlogModal 側）
+const POSTS = [
+  { ym: "2026.7", day: "23", category: "イベント", slotId: "blog-1", title: "夏の収穫体験、参加者を募集します", excerpt: "土に触れ、育った野菜をその場で収穫する一日。ご家族での参加も歓迎しています。" },
+  { ym: "2026.7", day: "08", category: "農園日誌", slotId: "blog-2", title: "梅雨明けの畑と、トマトの様子", excerpt: "長雨のあとの畑は驚くほど元気です。実の色づきが一気に進みました。" },
+  { ym: "2026.6", day: "30", category: "お知らせ", slotId: "blog-3", title: "直売所の営業時間を変更します", excerpt: "夏季のあいだ、朝の時間帯を早めて営業いたします。詳細はこちらから。" },
+  { ym: "2026.6", day: "12", category: "農園日誌", slotId: "blog-4", title: "新しい畝を立てました", excerpt: "秋冬野菜に向けた土づくりの季節です。堆肥をすき込み、休ませます。" },
+  { ym: "2026.5", day: "28", category: "レシピ", slotId: "blog-5", title: "採れたて人参の食べ方", excerpt: "皮ごと薄切りにして、塩とオイルだけで。素材の甘さがよくわかります。" }
+].map((p) => {
+  const [y, m] = String(p.ym).split(".");
+  return Object.assign({}, p, {
+    img: "assets/" + p.slotId + ".webp",
+    year: y,
+    md: m + "/" + String(p.day).replace(/^0/, ""),
+    iso: y + "-" + m.padStart(2, "0") + "-" + p.day
+  });
+});
+
+const CATS = ["イベント", "農園日誌", "お知らせ", "レシピ"];
+
+const TAB_BASE = "min-height:44px;padding:0;border-radius:999px;font-family:inherit;font-size:12px;letter-spacing:.06em;white-space:nowrap;cursor:pointer;transition:background .25s ease,color .25s ease,border-color .25s ease;";
+
+class Component extends DCLogic {
+  state = { menuOpen: false, cat: null, query: "" };
+
+  componentDidMount() {
+    // 画面幅が900px以上になったらPC版へ切り替える（TOPと同じ境界）。エディタのプレビュー内では切り替えない
+    this.mq = window.matchMedia("(min-width: 900px)");
+    this.onViewport = () => {
+      if (this.mq.matches && window.self === window.top) location.replace("BlogPC.dc.html" + location.hash);
+    };
+    this.mq.addEventListener("change", this.onViewport);
+    this.onViewport();
+
+    // TOPの記事カードから来たとき（#blog-1 など）は、その記事を開く
+    const hit = POSTS.find((p) => "#" + p.slotId === location.hash);
+    if (hit) this.setState({ open: hit });
+  }
+
+  componentWillUnmount() {
+    if (this.mq) this.mq.removeEventListener("change", this.onViewport);
+  }
+
+  filtered() {
+    const { cat, query } = this.state;
+    const q = query.trim();
+    return POSTS.filter((p) =>
+      (!cat || p.category === cat) &&
+      (!q || p.title.includes(q) || p.excerpt.includes(q) || p.category.includes(q))
+    );
+  }
+
+  // 開いている記事をURLの # に反映する（閉じたら消す）
+  setOpen(p) {
+    if (window.self === window.top) history.replaceState(null, "", p ? "#" + p.slotId : location.pathname + location.search);
+    this.setState({ open: p });
+  }
+
+  renderVals() {
+    const { cat, query, menuOpen } = this.state;
+    const tab = (label, on, pick) => ({
+      label, pick,
+      pressed: on ? "true" : "false",
+      style: TAB_BASE + (on ? "background:#3d3119;color:#efe6d2;border:1px solid #3d3119;" : "background:transparent;color:#3d3119;border:1px solid #c9b892;")
+    });
+    const tabs = [tab("すべて", !cat, () => this.setState({ cat: null }))]
+      .concat(CATS.map((c) => tab(c, cat === c, () => this.setState({ cat: cat === c ? null : c }))));
+
+    const all = this.filtered();
+    // 「詳細を開いた状態で表示」がオンなら、最初の記事を開いておく
+    const openPost = this.state.open !== undefined ? this.state.open : (this.props.previewDetail ? POSTS[0] : null);
+
+    return {
+      modalOpen: !!openPost,
+      openPost,
+      closeModal: () => this.setOpen(null),
+      // 前後の記事へ（新しい順の並びで移動）
+      stepPost: (dir) => {
+        const i = POSTS.indexOf(openPost);
+        const next = POSTS[i + dir];
+        if (next) this.setOpen(next);
+      },
+      menuOpen,
+      menuOpenStr: menuOpen ? "true" : "false",
+      toggleMenu: () => this.setState({ menuOpen: !menuOpen }),
+      tabs,
+      query,
+      onQuery: (e) => this.setState({ query: e.target.value }),
+      posts: all.map((p) => ({
+        ...p,
+        href: "#" + p.slotId,
+        open: (e) => { if (e) e.preventDefault(); this.setOpen(p); }
+      })),
+      filterLabel: cat ? cat + "の記事" : "すべての記事",
+      countLabel: all.length + " POSTS",
+      isEmpty: all.length === 0,
+      resetAll: () => this.setState({ cat: null, query: "" })
+    };
+  }
+}
+</script>
+</body>
+</html>
