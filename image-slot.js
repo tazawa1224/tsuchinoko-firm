@@ -335,6 +335,8 @@
     '  opacity:.35;transition:border-color .12s,opacity .12s}' +
     ':host([data-over]) .ring{border-color:#c96442;opacity:1}' +
     ':host([data-filled]) .ring{display:none}' +
+    // Public/read-only pages (no editor): never show the dashed edit ring.
+    ':host(:not([data-editable])) .ring{display:none}' +
     ':host([data-filled]) .frame{background:transparent}' +
     // Controls overlay INSIDE the frame, pinned to the top-right corner, so
     // a full-bleed slot in an overflow:hidden container still shows them
